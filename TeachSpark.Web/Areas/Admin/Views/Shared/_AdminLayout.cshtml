@@ -15,6 +15,11 @@
 
         gtag('config', 'G-RY77Z11S9E');
     </script>
+    <link rel="icon" href="~/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate icon" href="~/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700;800;900&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" />
     <link rel="stylesheet" href="@AssetsService.GetAssetPath("vendors.css")" />
     <link rel="stylesheet" href="@AssetsService.GetAssetPath("site.css")" />
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.min.css" />
@@ -26,10 +31,12 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-admin" aria-label="Admin">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
-                    <i class="bi bi-gear-fill"></i> TeachSpark Admin
+                <a class="ts-brand ts-brand-on-dark me-4" asp-area="Admin" asp-controller="Dashboard" asp-action="Index" aria-label="TeachSpark admin home">
+                    <partial name="_BrandMark" model="@("ts-brand-mark text-light")" />
+                    <span class="ts-brand-name">Teach<span>Spark</span></span>
+                    <span class="admin-chip">Admin</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -158,14 +165,14 @@
         </div>
     </main>
 
-    <footer class="bg-dark text-light py-3 border-top">
+    <footer class="admin-footer">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
-                    <span>&copy; 2025 - TeachSpark Admin Panel</span>
+                    <span>&copy; @DateTime.Now.Year Make Bold Solutions &middot; TeachSpark admin</span>
                 </div>
                 <div class="col-md-6 text-end">
-                    <small class="text-muted">Current Time: @DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")</small>
+                    <small>Server time: @DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")</small>
                 </div>
             </div>
         </div>

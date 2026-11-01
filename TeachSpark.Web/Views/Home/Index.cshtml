@@ -17,76 +17,84 @@
 
 <!-- ── Hero ──────────────────────────────────────────────── -->
 <section class="ts-hero fade-in">
-    <div class="row align-items-center">
-        <div class="col-lg-7 mb-4 mb-lg-0">
-            <div class="d-flex flex-wrap gap-2 mb-3">
-                <span class="ts-badge-pill"><i class="bi bi-mortarboard-fill"></i> Common Core Aligned</span>
-                <span class="ts-badge-pill"><i class="bi bi-people-fill"></i> Teacher Community</span>
-                <span class="ts-badge-pill"><i class="bi bi-lightning-charge-fill"></i> AI-Powered</span>
-            </div>
-            <h1 class="display-5 fw-bold text-white mb-3">
-                Create Professional Worksheets in Seconds
+    <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+            <span class="ts-eyebrow">AI worksheet generator for teachers</span>
+            <h1>
+                Professional worksheets.<br />
+                <span class="ts-accent">In seconds, on your terms.</span>
             </h1>
-            <p class="lead text-white mb-4">
-                TeachSpark puts you in control of AI — customize templates, align to standards, and collaborate
-                with educators worldwide to build worksheets that truly fit your classroom.
+            <p class="lead">
+                Paste a passage, pick a format, and get a standards-aligned worksheet with an answer key.
+                You control the templates and prompts behind the AI.
             </p>
-            <div class="d-flex flex-wrap gap-3">
+            <div class="ts-hero-actions">
                 @if (User.Identity?.IsAuthenticated == true)
                 {
-                    <a asp-controller="WorksheetGenerator" asp-action="Create" class="btn btn-lg" style="background:#fff;color:#4f46e5;font-weight:700;border-radius:0.6rem;">
-                        <i class="bi bi-lightning-charge-fill me-2"></i>Create Worksheet
+                    <a asp-controller="WorksheetGenerator" asp-action="Create" class="btn btn-primary btn-lg">
+                        Create a worksheet <i class="bi bi-arrow-right ms-2"></i>
                     </a>
-                    <a asp-controller="Account" asp-action="Dashboard" class="btn btn-lg" style="background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.35);border-radius:0.6rem;">
-                        <i class="bi bi-grid-1x2 me-2"></i>My Dashboard
+                    <a asp-controller="Account" asp-action="Dashboard" class="btn btn-secondary-mbs btn-lg">
+                        My dashboard
                     </a>
                 }
                 else
                 {
-                    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-lg" style="background:#fff;color:#4f46e5;font-weight:700;border-radius:0.6rem;">
-                        <i class="bi bi-person-plus-fill me-2"></i>Get Started Free
+                    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg">
+                        Get started free <i class="bi bi-arrow-right ms-2"></i>
                     </a>
-                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-lg" style="background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.35);border-radius:0.6rem;">
-                        <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                    <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-secondary-mbs btn-lg">
+                        Sign in
                     </a>
                 }
             </div>
+            <div class="ts-hero-proof">
+                <span><i class="bi bi-bookmark-check"></i>Common Core aligned</span>
+                <span><i class="bi bi-key"></i>Answer key included</span>
+                <span><i class="bi bi-sliders"></i>Editable prompts</span>
+            </div>
         </div>
         <div class="col-lg-5">
-            <div class="row g-3">
-                <div class="col-6">
-                    <div class="card border-0 h-100" style="background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);">
-                        <div class="card-body p-3 text-white">
-                            <i class="bi bi-book-fill fs-4 mb-2 d-block" style="color:#fcd34d;"></i>
-                            <div class="fw-bold small">Reading Comprehension</div>
-                            <div class="opacity-75" style="font-size:0.78rem;">Deep thinking questions</div>
+            <div class="ts-hero-panel">
+                <div class="ts-hero-panel-head">
+                    <p class="ts-hero-panel-title">Choose a worksheet type</p>
+                    <span class="badge badge-soft-rust">4 formats</span>
+                </div>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <div class="ts-type-tile">
+                            <span class="ts-type-icon"><i class="bi bi-book"></i></span>
+                            <div>
+                                <div class="ts-type-name">Reading comprehension</div>
+                                <div class="ts-type-desc">Deep thinking questions</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-6">
-                    <div class="card border-0 h-100" style="background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);">
-                        <div class="card-body p-3 text-white">
-                            <i class="bi bi-alphabet-uppercase fs-4 mb-2 d-block" style="color:#6ee7b7;"></i>
-                            <div class="fw-bold small">Vocabulary Builder</div>
-                            <div class="opacity-75" style="font-size:0.78rem;">Context-based exercises</div>
+                    <div class="col-6">
+                        <div class="ts-type-tile">
+                            <span class="ts-type-icon"><i class="bi bi-alphabet"></i></span>
+                            <div>
+                                <div class="ts-type-name">Vocabulary</div>
+                                <div class="ts-type-desc">Context-based exercises</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-6">
-                    <div class="card border-0 h-100" style="background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);">
-                        <div class="card-body p-3 text-white">
-                            <i class="bi bi-pencil-square fs-4 mb-2 d-block" style="color:#93c5fd;"></i>
-                            <div class="fw-bold small">Grammar Focus</div>
-                            <div class="opacity-75" style="font-size:0.78rem;">Rules in context</div>
+                    <div class="col-6">
+                        <div class="ts-type-tile">
+                            <span class="ts-type-icon"><i class="bi bi-pencil-square"></i></span>
+                            <div>
+                                <div class="ts-type-name">Grammar</div>
+                                <div class="ts-type-desc">Rules in context</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-6">
-                    <div class="card border-0 h-100" style="background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);">
-                        <div class="card-body p-3 text-white">
-                            <i class="bi bi-lightbulb-fill fs-4 mb-2 d-block" style="color:#fca5a5;"></i>
-                            <div class="fw-bold small">Creative Writing</div>
-                            <div class="opacity-75" style="font-size:0.78rem;">Inspire creativity</div>
+                    <div class="col-6">
+                        <div class="ts-type-tile">
+                            <span class="ts-type-icon"><i class="bi bi-lightbulb"></i></span>
+                            <div>
+                                <div class="ts-type-name">Creative writing</div>
+                                <div class="ts-type-desc">Text-inspired prompts</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -96,24 +104,24 @@
 </section>
 
 <!-- ── Problem / Solution ─────────────────────────────── -->
-<section class="mb-5">
+<section class="ts-section">
     <div class="text-center mb-4">
         <div class="ts-section-label">Why TeachSpark?</div>
-        <h2 class="ts-section-title fs-2">From Frustration to Flow</h2>
+        <h2 class="ts-section-title fs-2">From frustration to flow</h2>
     </div>
     <div class="row g-4">
         <div class="col-lg-6">
             <div class="card ts-challenge-card h-100 border-0">
                 <div class="card-header-ts">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i>Teaching Challenges
+                    <i class="bi bi-hourglass-split"></i>The usual way
                 </div>
                 <div class="card-body p-4">
                     <ul class="ts-check-list">
-                        <li><i class="bi bi-x-circle-fill text-danger"></i><span><strong>Time Crunch</strong> — Hours spent creating materials instead of teaching</span></li>
-                        <li><i class="bi bi-x-circle-fill text-danger"></i><span><strong>Generic Content</strong> — One-size-fits-all worksheets that don't match your class</span></li>
-                        <li><i class="bi bi-x-circle-fill text-danger"></i><span><strong>Engagement Issues</strong> — Students tune out cookie-cutter activities</span></li>
-                        <li><i class="bi bi-x-circle-fill text-danger"></i><span><strong>AI Confusion</strong> — Overwhelming tools without educator voice</span></li>
-                        <li><i class="bi bi-x-circle-fill text-danger"></i><span><strong>Isolation</strong> — No easy way to share best practices on AI use</span></li>
+                        <li><i class="bi bi-x-circle-fill"></i><span><strong>Time Crunch</strong> — Hours spent creating materials instead of teaching</span></li>
+                        <li><i class="bi bi-x-circle-fill"></i><span><strong>Generic Content</strong> — One-size-fits-all worksheets that don't match your class</span></li>
+                        <li><i class="bi bi-x-circle-fill"></i><span><strong>Engagement Issues</strong> — Students tune out cookie-cutter activities</span></li>
+                        <li><i class="bi bi-x-circle-fill"></i><span><strong>AI Confusion</strong> — Overwhelming tools without educator voice</span></li>
+                        <li><i class="bi bi-x-circle-fill"></i><span><strong>Isolation</strong> — No easy way to share best practices on AI use</span></li>
                     </ul>
                 </div>
             </div>
@@ -121,7 +129,7 @@
         <div class="col-lg-6">
             <div class="card ts-solution-card h-100 border-0">
                 <div class="card-header-ts">
-                    <i class="bi bi-lightbulb-fill me-2"></i>TeachSpark Solutions
+                    <i class="bi bi-check2-square"></i>The TeachSpark way
                 </div>
                 <div class="card-body p-4">
                     <ul class="ts-check-list">
@@ -138,46 +146,49 @@
 </section>
 
 <!-- ── How It Works ───────────────────────────────────── -->
-<section class="mb-5 p-4 p-lg-5 rounded-3" style="background:#f1f5f9;">
+<section class="ts-section ts-section-sunken">
     <div class="text-center mb-5">
         <div class="ts-section-label">Simple Process</div>
-        <h2 class="ts-section-title fs-2">How TeachSpark Works</h2>
-        <p class="text-muted mt-2">From passage to polished worksheet in three easy steps</p>
+        <h2 class="ts-section-title fs-2">How TeachSpark works</h2>
+        <p class="ts-section-intro mx-auto mt-2">From passage to polished worksheet in three easy steps</p>
     </div>
-    <div class="row g-4 text-center">
+    <div class="row g-4">
         <div class="col-lg-4">
-            <div class="ts-step-circle bg-primary text-white mx-auto">1</div>
-            <h5 class="fw-bold mb-2">Paste Your Text</h5>
-            <p class="text-muted small">Copy any reading passage, story, or article into TeachSpark — from your textbook, online article, or any educational source.</p>
-            <i class="bi bi-file-text fs-2 text-primary opacity-50"></i>
+            <div class="ts-step">
+            <div class="ts-step-circle">1</div>
+            <h3>Paste Your Text</h3>
+            <p>Copy any reading passage, story, or article into TeachSpark — from your textbook, online article, or any educational source.</p>
+            </div>
         </div>
         <div class="col-lg-4">
-            <div class="ts-step-circle bg-primary text-white mx-auto">2</div>
-            <h5 class="fw-bold mb-2">Customize &amp; Configure</h5>
-            <p class="text-muted small">Choose your template, set the difficulty level, align to Common Core standards, and add any custom instructions.</p>
-            <i class="bi bi-sliders fs-2 text-primary opacity-50"></i>
+            <div class="ts-step">
+            <div class="ts-step-circle">2</div>
+            <h3>Customize &amp; Configure</h3>
+            <p>Choose your template, set the difficulty level, align to Common Core standards, and add any custom instructions.</p>
+            </div>
         </div>
         <div class="col-lg-4">
-            <div class="ts-step-circle" style="background:#059669;color:#fff;margin:0 auto 1rem;">3</div>
-            <h5 class="fw-bold mb-2">Generate &amp; Use</h5>
-            <p class="text-muted small">Your professional worksheet is ready in seconds. Download, print, or share — with a full answer key included.</p>
-            <i class="bi bi-download fs-2 text-success opacity-50"></i>
+            <div class="ts-step">
+            <div class="ts-step-circle">3</div>
+            <h3>Generate &amp; Use</h3>
+            <p>Your professional worksheet is ready in seconds. Download, print, or share — with a full answer key included.</p>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- ── Worksheet Types ────────────────────────────────── -->
-<section class="mb-5">
+<section class="ts-section">
     <div class="text-center mb-4">
         <div class="ts-section-label">Worksheet Types</div>
-        <h2 class="ts-section-title fs-2">Every Format Designed for Learning</h2>
+        <h2 class="ts-section-title fs-2">Every format, designed for learning</h2>
     </div>
     <div class="row g-4">
         <div class="col-lg-6 col-md-6">
             <div class="card h-100 card-hover border-0">
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        <div class="feature-icon-wrap" style="background:rgba(79,70,229,0.1);color:#4f46e5;">
+                        <div class="feature-icon-wrap mb-0 tone-rust">
                             <i class="bi bi-book-fill"></i>
                         </div>
                         <div>
@@ -198,7 +209,7 @@
             <div class="card h-100 card-hover border-0">
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        <div class="feature-icon-wrap" style="background:rgba(5,150,105,0.1);color:#059669;">
+                        <div class="feature-icon-wrap mb-0 tone-ember">
                             <i class="bi bi-alphabet-uppercase"></i>
                         </div>
                         <div>
@@ -219,7 +230,7 @@
             <div class="card h-100 card-hover border-0">
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        <div class="feature-icon-wrap" style="background:rgba(8,145,178,0.1);color:#0891b2;">
+                        <div class="feature-icon-wrap mb-0 tone-ink">
                             <i class="bi bi-pencil-square"></i>
                         </div>
                         <div>
@@ -240,7 +251,7 @@
             <div class="card h-100 card-hover border-0">
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center gap-3 mb-3">
-                        <div class="feature-icon-wrap" style="background:rgba(245,158,11,0.1);color:#d97706;">
+                        <div class="feature-icon-wrap mb-0 tone-rust">
                             <i class="bi bi-lightbulb-fill"></i>
                         </div>
                         <div>
@@ -261,9 +272,9 @@
 </section>
 
 <!-- ── Benefits Banner ────────────────────────────────── -->
-<section class="ts-cta-banner mb-5">
+<section class="ts-cta-banner ts-section">
     <div class="text-center mb-4">
-        <h2 class="fw-bold mb-2">Why Teachers Love TeachSpark</h2>
+        <h2 class="ts-section-title fs-1 mb-2">Why teachers choose TeachSpark</h2>
         <p class="opacity-75 mb-0">Empowerment through collaboration, customization, and control</p>
     </div>
     <div class="row g-4 text-center">
@@ -291,11 +302,11 @@
 </section>
 
 <!-- ── Getting Started CTA ────────────────────────────── -->
-<section class="mb-5">
+<section class="ts-section">
     <div class="row align-items-center">
         <div class="col-lg-8 mb-4 mb-lg-0">
-            <div class="ts-section-label">Ready?</div>
-            <h2 class="ts-section-title fs-2 mt-1">Join the Educational AI Revolution</h2>
+            <div class="ts-section-label">Get started</div>
+            <h2 class="ts-section-title fs-2 mt-1">Bring your own teaching voice to AI</h2>
             <p class="text-muted mt-2 mb-3">
                 Become part of a community of educators leading the integration of AI in classrooms.
                 Take control of your teaching tools and help shape the future of educational technology.
@@ -308,7 +319,7 @@
             </ul>
         </div>
         <div class="col-lg-4">
-            <div class="card border-0 p-4 text-center" style="background:linear-gradient(135deg,#f1f5f9,#e2e8f0);">
+            <div class="ts-cta-card text-center">
                 @if (User.Identity?.IsAuthenticated != true)
                 {
                     <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg mb-3 w-100">
@@ -329,10 +340,10 @@
 </section>
 
 <!-- ── FAQ ────────────────────────────────────────────── -->
-<section class="mb-2 p-4 p-lg-5 rounded-3" style="background:#f1f5f9;">
+<section class="mb-2">
     <div class="text-center mb-4">
         <div class="ts-section-label">FAQs</div>
-        <h2 class="ts-section-title fs-2">Common Questions</h2>
+        <h2 class="ts-section-title fs-2">Common questions</h2>
     </div>
     <div class="row">
         <div class="col-lg-8 mx-auto">

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "teachspark",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": ["run", "--project", "TeachSpark.Web/TeachSpark.Web.csproj", "--launch-profile", "http", "--no-build"],
+      "port": 5213
+    }
+  ]
+}
