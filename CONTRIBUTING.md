@@ -26,7 +26,7 @@ Before contributing, ensure you have:
 3. **Add the upstream repository**:
 
    ```bash
-   git remote add upstream https://github.com/MarkHazleton/TeachSpark.git
+   git remote add upstream https://github.com/MakeBoldSolutions/TeachSpark.git
    ```
 
 4. **Install dependencies**:
@@ -222,8 +222,8 @@ Contributors will be recognized in:
 
 ## 📞 Getting Help
 
-- **Questions**: [Start a discussion](https://github.com/MarkHazleton/TeachSpark/discussions)
-- **Issues**: [Create an issue](https://github.com/MarkHazleton/TeachSpark/issues)
+- **Questions**: [Start a discussion](https://github.com/MakeBoldSolutions/TeachSpark/discussions)
+- **Issues**: [Create an issue](https://github.com/MakeBoldSolutions/TeachSpark/issues)
 - **Real-time chat**: Check project discussions for community links
 
 ## 📝 License

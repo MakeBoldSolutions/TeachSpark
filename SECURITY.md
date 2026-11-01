@@ -19,11 +19,11 @@ We take the security of TeachSpark seriously. If you believe you have found a se
 
 Instead, please report them via GitHub's private vulnerability reporting feature:
 
-1. Go to the [Security tab](https://github.com/MarkHazleton/TeachSpark/security) of this repository
+1. Go to the [Security tab](https://github.com/MakeBoldSolutions/TeachSpark/security) of this repository
 2. Click "Report a vulnerability"
 3. Fill out the form with as much detail as possible
 
-Alternatively, you can email security concerns to: [Create a GitHub issue](https://github.com/MarkHazleton/TeachSpark/issues/new?template=bug_report.md) and mark it as security-related.
+Alternatively, you can email security concerns to: [Create a GitHub issue](https://github.com/MakeBoldSolutions/TeachSpark/issues/new?template=bug_report.md) and mark it as security-related.
 
 ### 📋 What to Include
 

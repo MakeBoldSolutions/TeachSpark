@@ -45,7 +45,7 @@ TeachSpark is a cutting-edge educational platform built with .NET 10 MVC and pow
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/MarkHazleton/TeachSpark.git
+   git clone https://github.com/MakeBoldSolutions/TeachSpark.git
    cd TeachSpark
    ```
 
@@ -212,9 +212,9 @@ We welcome contributions from the community! Please see our [Contributing Guidel
 
 ## 📋 Issues and Support
 
-- 🐛 **Bug Reports**: [Create an issue](https://github.com/MarkHazleton/TeachSpark/issues/new?template=bug_report.md)
-- 💡 **Feature Requests**: [Create an issue](https://github.com/MarkHazleton/TeachSpark/issues/new?template=feature_request.md)
-- ❓ **Questions**: [Start a discussion](https://github.com/MarkHazleton/TeachSpark/discussions)
+- 🐛 **Bug Reports**: [Create an issue](https://github.com/MakeBoldSolutions/TeachSpark/issues/new?template=bug_report.md)
+- 💡 **Feature Requests**: [Create an issue](https://github.com/MakeBoldSolutions/TeachSpark/issues/new?template=feature_request.md)
+- ❓ **Questions**: [Start a discussion](https://github.com/MakeBoldSolutions/TeachSpark/discussions)
 - 📧 **Contact**: Please use GitHub Issues for all inquiries
 
 ## 📝 License
@@ -232,7 +232,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**[⭐ Star this repository](https://github.com/MarkHazleton/TeachSpark/stargazers)** if you find it helpful!
+**[⭐ Star this repository](https://github.com/MakeBoldSolutions/TeachSpark/stargazers)** if you find it helpful!
 
 [TeachSpark](https://teach.makeboldspark.com) — built by [Mark Hazleton](https://markhazleton.com) · [MakeBoldSpark](https://makeboldspark.com)
 
