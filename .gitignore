@@ -427,3 +427,6 @@ FodyWeavers.xsd
 
 # Guard against cross-platform invalid Windows filenames containing ':'
 *:*
+
+# DevSpark — personal overrides (never commit)
+.documentation/*/commands/

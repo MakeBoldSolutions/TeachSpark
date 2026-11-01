@@ -1,0 +1,6 @@
+product: DevSpark
+edition: Make-Bold
+version: 9.4.0
+installed: 2026-11-01
+method: claude-code-quickstart
+migrated-from: documentation-defaults
