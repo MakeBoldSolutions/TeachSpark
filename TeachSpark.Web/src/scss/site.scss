@@ -152,6 +152,12 @@ $dur-base: 200ms;
   $accordion-button-active-color: $rust-700,
   $accordion-button-focus-box-shadow: $focus-ring,
   $accordion-border-color: $ink-200,
+  // Exact hex icon colors: Bootstrap's computed shades come out as
+  // rgb() with % channels, which corrupts the escaped SVG data URIs.
+  $accordion-icon-color: $ink-800,
+  $accordion-icon-active-color: $rust-700,
+  $accordion-icon-color-dark: $rust-200,
+  $accordion-icon-active-color-dark: $rust-200,
   $nav-pills-link-active-bg: $rust-500,
   $pagination-active-bg: $rust-500,
   $pagination-active-border-color: $rust-500,

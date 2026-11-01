@@ -4,7 +4,7 @@
     {
       "name": "teachspark",
       "runtimeExecutable": "dotnet",
-      "runtimeArgs": ["run", "--project", "TeachSpark.Web/TeachSpark.Web.csproj", "--launch-profile", "http", "--no-build"],
+      "runtimeArgs": ["run", "--project", "TeachSpark.Web/TeachSpark.Web.csproj", "--launch-profile", "http"],
       "port": 5213
     }
   ]
