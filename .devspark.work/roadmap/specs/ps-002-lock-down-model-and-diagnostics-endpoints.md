@@ -2,7 +2,7 @@
 id: ps-002
 title: Lock down model API and diagnostics
 phase: 0
-status: proposed
+status: ready
 priority: P0
 size: S
 depends_on: []
