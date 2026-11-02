@@ -12,7 +12,7 @@
         new { Icon = "bi-bookmarks", Title = "Standards alignment", Desc = "Optionally align a worksheet to a grade 8 Common Core ELA standard and a Bloom's taxonomy level. More grades and subjects are next on the roadmap." },
         new { Icon = "bi-printer", Title = "Teacher and student views", Desc = "Review the worksheet with its answer key, switch to a student version without answers, and print from your browser." },
         new { Icon = "bi-person-check", Title = "Teacher accounts", Desc = "Free registration and sign-in, a personal dashboard and profile. Sign-ins last 14 days while you keep using the site." },
-        new { Icon = "bi-shield-lock", Title = "Admin area", Desc = "Administrators manage standards, Bloom's levels, worksheet templates and their AI prompts, and review usage. Restricted to the Admin role." },
+        new { Icon = "bi-shield-lock", Title = "Admin area", Desc = "Administrators manage standards, Bloom's levels, worksheet templates and their AI prompts, and review usage. Restricted to the Admin role, as are server diagnostics; the AI model endpoints require sign-in." },
         new { Icon = "bi-graph-up", Title = "Usage tracking", Desc = "The model, tokens, cost and generation time of every worksheet are recorded, with structured logging of AI requests." },
     };
 
@@ -35,7 +35,6 @@
             Items = new[]
             {
                 new { Icon = "bi-speedometer", Title = "Fair-use and spending limits", Desc = "Daily limits on AI usage per teacher and overall, with a clear message when a limit is reached." },
-                new { Icon = "bi-lock", Title = "Security hardening", Desc = "Require sign-in for the AI model endpoints and restrict diagnostics to administrators." },
                 new { Icon = "bi-database-check", Title = "Safe upgrades for your data", Desc = "Database changes that apply automatically and keep your saved worksheets intact." },
                 new { Icon = "bi-check2-all", Title = "Automated testing of generation", Desc = "Test the full worksheet flow on every change, without calling the AI service." },
             },

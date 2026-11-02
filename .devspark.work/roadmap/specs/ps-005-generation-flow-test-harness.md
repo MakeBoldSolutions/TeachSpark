@@ -2,7 +2,7 @@
 id: ps-005
 title: Generation-flow test harness
 phase: 0
-status: proposed
+status: ready
 priority: P0
 size: M
 depends_on: []

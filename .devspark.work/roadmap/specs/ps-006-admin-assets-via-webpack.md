@@ -2,7 +2,7 @@
 id: ps-006
 title: Admin assets through webpack
 phase: 0
-status: proposed
+status: ready
 priority: P2
 size: S
 depends_on: []

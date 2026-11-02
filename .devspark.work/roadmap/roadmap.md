@@ -1,9 +1,10 @@
 # TeachSpark Roadmap
 
-> **Last updated:** 2026-11-02 · **Baseline:** `main` at `0530dc2` (after PR #15) · **Owner:** Lead maintainer
+> **Last updated:** 2026-11-02 · **Baseline:** `main` at `189cd6e` (after PR #16) · **Owner:** Lead maintainer
 >
 > This file is the source of truth for where TeachSpark is going. The public `/Home/Plan` page should
-> reflect it (see [ps-001](specs/ps-001-truthful-roadmap-page.md)), not the other way round.
+> reflect it (see [ps-001](specs/complete/ps-001-truthful-roadmap-page.md)), not the other way round.
+> Run `python .devspark.work/roadmap/check_roadmap.py` after any change; see *How to use and track this roadmap*.
 
 ## Vision
 
@@ -19,9 +20,9 @@ Three principles shape every item below:
 3. **No student data.** TeachSpark serves teachers. Features are designed so the app never needs to
    store student names or records (keeps FERPA/COPPA exposure at zero).
 
-## Where we are (verified 2026-11-02)
+## Where we are (verified 2026-11-02 at `189cd6e`)
 
-What actually works today, checked against the code rather than the public roadmap page:
+What actually works today, checked against the code:
 
 | Area | State | Evidence |
 |------|-------|----------|
@@ -33,15 +34,13 @@ What actually works today, checked against the code rather than the public roadm
 | Teacher's own worksheets | ❌ No "my worksheets" list; dashboard only links to "New worksheet" | `Views/Account/Dashboard.cshtml` |
 | Cost control | ❌ `DailyCostLimit` is configured but **never enforced** | only `Configuration/LlmConfiguration.cs:21` reads it |
 | Favorites / sharing | ❌ `IsFavorite` / `IsPublic` columns exist, editable only by admins | `Data/Entities/Worksheet.cs:46-48` |
-| Public API | ❌ `ApiKey` entity and admin screens exist, but nothing authenticates with them; the model API is anonymous | `Controllers/ModelsController.cs` (audit AUTH2) |
+| Public API | ❌ `ApiKey` entity and admin screens exist, but nothing authenticates with them. The only API is model metadata for signed-in teachers; the anonymous `api/models` controller was removed (ps-002, audit AUTH2) | `Controllers/Api/WorksheetGeneratorApiController.cs` |
 | Schema management | ⚠️ `EnsureCreated()` at startup while a `Migrations/` folder exists, so migrations are not applied | `Program.cs:80` |
-| Tests | ⚠️ 15 integration tests (routing, admin auth, identity pages); generation flow untested | `TeachSpark.Tests/` |
+| Tests | ⚠️ 22 integration tests (routing, admin auth, identity pages, public page claims); generation flow untested | `TeachSpark.Tests/` |
 | Frontend pipeline | ⚠️ Public site fully on webpack; admin layout still loads 13 CDN assets | audit FE1 |
+| Public website | ✅ Roadmap, home and generator pages describe only shipped features (PR #16); guarded by `PublicPagesTests` | `Views/Home/Plan.cshtml` |
 
-**The public roadmap page overstates progress.** It lists "Student Cohort Management", "REST API
-Endpoints" and "Teacher Feedback Loop" as *In Progress* (none exist in code), "daily cost limits" and
-"rate limiting" as live (not enforced), and an "indigo/amber" palette replaced by PR #14. Fixing that
-is the first item.
+**Progress:** 1 of 18 items done (ps-001). Phase 0: 1 of 6 done; ps-002 is `in-progress`; ps-005 and ps-006 are `ready`.
 
 ## Roadmap at a glance
 
@@ -55,12 +54,12 @@ are safe; generation can be tested without calling OpenAI.*
 
 | ID | Item | Size | Depends on | Status |
 |----|------|------|-----------|--------|
-| [ps-001](specs/ps-001-truthful-roadmap-page.md) | Truthful public roadmap page | S | — | in-progress |
-| [ps-002](specs/ps-002-lock-down-model-and-diagnostics-endpoints.md) | Lock down model API and diagnostics | S | — | proposed |
+| [ps-001](specs/complete/ps-001-truthful-roadmap-page.md) | Truthful public roadmap page | S | — | done |
+| [ps-002](specs/ps-002-lock-down-model-and-diagnostics-endpoints.md) | Lock down model API and diagnostics | S | — | in-progress |
 | [ps-003](specs/ps-003-enforce-ai-cost-and-usage-limits.md) | Enforce AI cost and usage limits | M | ps-005 | proposed |
 | [ps-004](specs/ps-004-ef-core-migrations-baseline.md) | EF Core migrations baseline | M | — | proposed |
-| [ps-005](specs/ps-005-generation-flow-test-harness.md) | Generation-flow test harness | M | — | proposed |
-| [ps-006](specs/ps-006-admin-assets-via-webpack.md) | Admin assets through webpack | S | — | proposed |
+| [ps-005](specs/ps-005-generation-flow-test-harness.md) | Generation-flow test harness | M | — | ready |
+| [ps-006](specs/ps-006-admin-assets-via-webpack.md) | Admin assets through webpack | S | — | ready |
 
 ### Phase 1 — Core teacher value (Next)
 
@@ -195,7 +194,7 @@ flowchart LR
 | `ready` | Dependencies met, open questions answered; next to pick up |
 | `specifying` | `/devspark-specify` run; real spec exists (link it in the ps file's `spec:` field) |
 | `in-progress` | Implementation underway on a branch |
-| `done` | Merged; record the PR in the ps file's `delivered_in:` field |
+| `done` | Merged; record the PR in `delivered_in:` and move the file to `specs/complete/` |
 | `deferred` / `dropped` | Parked or abandoned; give the reason in the changelog |
 
 **Workflow for an item:**
@@ -204,8 +203,38 @@ flowchart LR
 2. Run `/devspark-specify` and paste the ps file's *Intake* section as the input. It follows DevSpark's
    intake template (verified findings, goal, design, non-goals, acceptance criteria, rollout).
 3. Set `status: specifying` and the `spec:` link; move to `in-progress` when a branch exists.
-4. On merge set `status: done`, `delivered_in: PR #n`, and add a changelog line below.
-5. Update the public page whenever a status changes: edit the `live` and `phases` arrays at the top of `TeachSpark.Web/Views/Home/Plan.cshtml`, and check the home page (`Views/Home/Index.cshtml`) still makes no claim the code does not support. `TeachSpark.Tests/PublicPagesTests.cs` guards the known false claims.
+4. On merge set `status: done` and `delivered_in: "PR #n (sha)"` in the ps file, then run
+   `python .devspark.work/roadmap/check_roadmap.py --fix`. It moves done files into `specs/complete/`
+   (with `git mv`), rewrites their links, and copies each file's status into the tables.
+5. Update the rest of this file by hand: the **Progress** line, any "Where we are" row the change
+   affects, the **Last updated** baseline, and a changelog line. Mark newly unblocked items `ready`.
+6. Update the public page whenever a status changes: edit the `live` and `phases` arrays at the top of
+   `TeachSpark.Web/Views/Home/Plan.cshtml`, and check the home page (`Views/Home/Index.cshtml`) still
+   makes no claim the code does not support. `TeachSpark.Tests/PublicPagesTests.cs` guards the known
+   false claims.
+7. Run `python .devspark.work/roadmap/check_roadmap.py` before committing; it must report no errors.
+   Tracking-only changes ride along in the next roadmap item's PR.
+
+**Layout:**
+
+```text
+.devspark.work/roadmap/
+├── roadmap.md            this file: the plan and its current state
+├── check_roadmap.py      consistency check (and --fix for moves, links and statuses)
+└── specs/
+    ├── ps-NNN-*.md       open items (proposed, ready, specifying, in-progress, deferred)
+    └── complete/
+        └── ps-NNN-*.md   done items, kept for history; dropped items also go here
+```
+
+**Source of truth:** each ps file's frontmatter owns its status, size, dependencies and title; the
+tables mirror them. `check_roadmap.py` reports any drift and fails on:
+
+- a ps file missing from the tables, or a table row with no file or a broken link;
+- a title, size, dependency or status that differs between file and table;
+- a `done` or `dropped` file outside `specs/complete/`, or an open one inside it;
+- `done` without `delivered_in`, or `specifying`/`in-progress` without its `spec` link once specified;
+- `ready` or `in-progress` while a dependency is not `done`.
 
 **Review cadence:** re-verify the "Where we are" table and re-order at each phase exit or monthly,
 whichever comes first; run `/devspark-site-audit` at each phase exit and compare with the 2026-11-01
@@ -217,3 +246,6 @@ baseline.
 |------|--------|
 | 2026-11-02 | Roadmap created from code review, the 2026-11-01 site audit, the PR #14 review and the public `/Home/Plan` page. 18 prospective specs, all `proposed`. |
 | 2026-11-02 | ps-001 → `in-progress` on branch `feat/truthful-roadmap-page`: roadmap page rebuilt from this file (Live / Now / Next / Later / Horizon); home and generator landing copy corrected (5 formats, optional answer key, grade 8 standards, no prompt editing, sharing or download claims); `PublicPagesTests` added. |
+| 2026-11-02 | ps-001 → `done`: merged in PR #16 (`189cd6e`). Next up in Phase 0: ps-002, ps-004, ps-005 and ps-006 have no dependencies and can start in parallel; ps-003 follows ps-005. |
+| 2026-11-02 | Completed items now move to `specs/complete/`; `check_roadmap.py` added to keep files and tables in sync. ps-001 moved. ps-002, ps-005, ps-006 → `ready` (no dependencies; their open questions are answered during specification). ps-004 stays `proposed` until we confirm how many databases need baselining. "Where we are" re-verified at `189cd6e`. |
+| 2026-11-02 | ps-002 → `in-progress` on `feat/ps-002-lock-down-endpoints`: anonymous `ModelsController` deleted (nothing used it), diagnostics limited to Development or Admin by an authorization policy. |

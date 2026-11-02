@@ -12,6 +12,15 @@ public static class AppRoles
 }
 
 /// <summary>
+/// Authorization policy names
+/// </summary>
+public static class AppPolicies
+{
+    /// <summary>Anyone in Development; the Admin role in every other environment.</summary>
+    public const string Diagnostics = "Diagnostics";
+}
+
+/// <summary>
 /// Grants the Admin role to the accounts listed in TeachSpark:AdminEmails, at startup only.
 /// No account is an administrator unless its email is configured there. Email ownership is
 /// not verified (confirmation is off), so the role is never granted at registration: the

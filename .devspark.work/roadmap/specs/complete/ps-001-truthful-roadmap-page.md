@@ -2,13 +2,13 @@
 id: ps-001
 title: Truthful public roadmap page
 phase: 0
-status: in-progress
+status: done
 priority: P1
 size: S
 depends_on: []
 sources: [TeachSpark.Web/Views/Home/Plan.cshtml, .devspark.work/roadmap/roadmap.md]
 spec: null
-delivered_in: null
+delivered_in: "PR #16 (189cd6e)"
 updated: 2026-11-02
 ---
 
