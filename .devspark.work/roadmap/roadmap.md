@@ -55,7 +55,7 @@ are safe; generation can be tested without calling OpenAI.*
 
 | ID | Item | Size | Depends on | Status |
 |----|------|------|-----------|--------|
-| [ps-001](specs/ps-001-truthful-roadmap-page.md) | Truthful public roadmap page | S | — | in-progress |
+| [ps-001](specs/ps-001-truthful-roadmap-page.md) | Truthful public roadmap page | S | — | done |
 | [ps-002](specs/ps-002-lock-down-model-and-diagnostics-endpoints.md) | Lock down model API and diagnostics | S | — | proposed |
 | [ps-003](specs/ps-003-enforce-ai-cost-and-usage-limits.md) | Enforce AI cost and usage limits | M | ps-005 | proposed |
 | [ps-004](specs/ps-004-ef-core-migrations-baseline.md) | EF Core migrations baseline | M | — | proposed |
@@ -217,3 +217,4 @@ baseline.
 |------|--------|
 | 2026-11-02 | Roadmap created from code review, the 2026-11-01 site audit, the PR #14 review and the public `/Home/Plan` page. 18 prospective specs, all `proposed`. |
 | 2026-11-02 | ps-001 → `in-progress` on branch `feat/truthful-roadmap-page`: roadmap page rebuilt from this file (Live / Now / Next / Later / Horizon); home and generator landing copy corrected (5 formats, optional answer key, grade 8 standards, no prompt editing, sharing or download claims); `PublicPagesTests` added. |
+| 2026-11-02 | ps-001 → `done`: merged in PR #16 (`189cd6e`). Next up in Phase 0: ps-002, ps-004, ps-005 and ps-006 have no dependencies and can start in parallel; ps-003 follows ps-005. |
