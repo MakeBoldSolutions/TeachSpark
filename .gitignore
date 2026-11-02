@@ -48,6 +48,7 @@ TeachSpark.Web/wwwroot/css/
 TeachSpark.Web/wwwroot/fonts/
 TeachSpark.Web/wwwroot/images/
 TeachSpark.Web/wwwroot/favicon.ico
+TeachSpark.Web/wwwroot/favicon.svg
 TeachSpark.Web/wwwroot/assets-manifest.json
 !TeachSpark.Web/wwwroot/**/.gitkeep
 
