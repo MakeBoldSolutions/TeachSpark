@@ -2,13 +2,13 @@
 id: ps-002
 title: Lock down model API and diagnostics
 phase: 0
-status: in-progress
+status: done
 priority: P0
 size: S
 depends_on: []
 sources: [.devspark.work/audit/2026-11-01_results.md (AUTH2), TeachSpark.Web/Controllers/ModelsController.cs, TeachSpark.Web/Controllers/DiagnosticsController.cs]
 spec: "branch feat/ps-002-lock-down-endpoints (universal route, no spec bundle)"
-delivered_in: null
+delivered_in: "PR #17 (7360548)"
 updated: 2026-11-02
 ---
 
