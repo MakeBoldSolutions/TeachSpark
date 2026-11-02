@@ -2,12 +2,12 @@
 id: ps-002
 title: Lock down model API and diagnostics
 phase: 0
-status: ready
+status: in-progress
 priority: P0
 size: S
 depends_on: []
 sources: [.devspark.work/audit/2026-11-01_results.md (AUTH2), TeachSpark.Web/Controllers/ModelsController.cs, TeachSpark.Web/Controllers/DiagnosticsController.cs]
-spec: null
+spec: "branch feat/ps-002-lock-down-endpoints (universal route, no spec bundle)"
 delivered_in: null
 updated: 2026-11-02
 ---
@@ -49,6 +49,9 @@ ROLLOUT
 - Single PR. Check the generator page's network calls for any anonymous use before merging.
 ```
 
-## Open questions
+## Decisions (specification, 2026-11-02)
 
-- Does any signed-out page call `api/models`? A grep of `src/js` during specification answers this.
+- **Nothing calls `api/models`.** The only frontend model call is `/api/worksheet-generator/models` from the signed-in Create page (`Views/WorksheetGenerator/Create.cshtml:199`).
+- **Delete `ModelsController`** rather than securing it (decided by the maintainer). `WorksheetGeneratorApiController` already covers model listing, recommendation and cost estimation behind `[Authorize]`. This also removes `GET api/models?forceRefresh=true`, a second anonymous path to a provider call found during specification.
+- **Diagnostics:** Development, or Admin role in any other environment; the `?enable` switch goes.
+- Acceptance tests become: every former `api/models` route answers like a path that never existed (404 for GET, 405 for POST); the `api/worksheet-generator/models*` routes return 401 anonymously and 200 for a signed-in teacher; outside Development `/Diagnostics/Assets` returns 401 anonymously and 403 for non-admins (with or without `?enable`) and 200 for Admin, and in Development it is open. Implemented as the `Diagnostics` authorization policy (`AppPolicies.Diagnostics`), so the boundary is an attribute on the controller as constitution principle IV requires. Tests: `TeachSpark.Tests/EndpointAuthorizationTests.cs`.

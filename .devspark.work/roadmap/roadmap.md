@@ -34,13 +34,13 @@ What actually works today, checked against the code:
 | Teacher's own worksheets | ❌ No "my worksheets" list; dashboard only links to "New worksheet" | `Views/Account/Dashboard.cshtml` |
 | Cost control | ❌ `DailyCostLimit` is configured but **never enforced** | only `Configuration/LlmConfiguration.cs:21` reads it |
 | Favorites / sharing | ❌ `IsFavorite` / `IsPublic` columns exist, editable only by admins | `Data/Entities/Worksheet.cs:46-48` |
-| Public API | ❌ `ApiKey` entity and admin screens exist, but nothing authenticates with them; the model API is anonymous | `Controllers/ModelsController.cs` (audit AUTH2) |
+| Public API | ❌ `ApiKey` entity and admin screens exist, but nothing authenticates with them. The only API is model metadata for signed-in teachers; the anonymous `api/models` controller was removed (ps-002, audit AUTH2) | `Controllers/Api/WorksheetGeneratorApiController.cs` |
 | Schema management | ⚠️ `EnsureCreated()` at startup while a `Migrations/` folder exists, so migrations are not applied | `Program.cs:80` |
 | Tests | ⚠️ 22 integration tests (routing, admin auth, identity pages, public page claims); generation flow untested | `TeachSpark.Tests/` |
 | Frontend pipeline | ⚠️ Public site fully on webpack; admin layout still loads 13 CDN assets | audit FE1 |
 | Public website | ✅ Roadmap, home and generator pages describe only shipped features (PR #16); guarded by `PublicPagesTests` | `Views/Home/Plan.cshtml` |
 
-**Progress:** 1 of 18 items done (ps-001). Phase 0: 1 of 6 done; ps-002, ps-005 and ps-006 are `ready`.
+**Progress:** 1 of 18 items done (ps-001). Phase 0: 1 of 6 done; ps-002 is `in-progress`; ps-005 and ps-006 are `ready`.
 
 ## Roadmap at a glance
 
@@ -55,7 +55,7 @@ are safe; generation can be tested without calling OpenAI.*
 | ID | Item | Size | Depends on | Status |
 |----|------|------|-----------|--------|
 | [ps-001](specs/complete/ps-001-truthful-roadmap-page.md) | Truthful public roadmap page | S | — | done |
-| [ps-002](specs/ps-002-lock-down-model-and-diagnostics-endpoints.md) | Lock down model API and diagnostics | S | — | ready |
+| [ps-002](specs/ps-002-lock-down-model-and-diagnostics-endpoints.md) | Lock down model API and diagnostics | S | — | in-progress |
 | [ps-003](specs/ps-003-enforce-ai-cost-and-usage-limits.md) | Enforce AI cost and usage limits | M | ps-005 | proposed |
 | [ps-004](specs/ps-004-ef-core-migrations-baseline.md) | EF Core migrations baseline | M | — | proposed |
 | [ps-005](specs/ps-005-generation-flow-test-harness.md) | Generation-flow test harness | M | — | ready |
@@ -248,3 +248,4 @@ baseline.
 | 2026-11-02 | ps-001 → `in-progress` on branch `feat/truthful-roadmap-page`: roadmap page rebuilt from this file (Live / Now / Next / Later / Horizon); home and generator landing copy corrected (5 formats, optional answer key, grade 8 standards, no prompt editing, sharing or download claims); `PublicPagesTests` added. |
 | 2026-11-02 | ps-001 → `done`: merged in PR #16 (`189cd6e`). Next up in Phase 0: ps-002, ps-004, ps-005 and ps-006 have no dependencies and can start in parallel; ps-003 follows ps-005. |
 | 2026-11-02 | Completed items now move to `specs/complete/`; `check_roadmap.py` added to keep files and tables in sync. ps-001 moved. ps-002, ps-005, ps-006 → `ready` (no dependencies; their open questions are answered during specification). ps-004 stays `proposed` until we confirm how many databases need baselining. "Where we are" re-verified at `189cd6e`. |
+| 2026-11-02 | ps-002 → `in-progress` on `feat/ps-002-lock-down-endpoints`: anonymous `ModelsController` deleted (nothing used it), diagnostics limited to Development or Admin by an authorization policy. |

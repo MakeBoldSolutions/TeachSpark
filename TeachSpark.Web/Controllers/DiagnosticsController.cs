@@ -1,12 +1,15 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TeachSpark.Web;
+using TeachSpark.Web.Services;
 
 namespace TeachSpark.Web.Controllers;
 
 /// <summary>
 /// Diagnostic controller for troubleshooting asset loading issues
-/// Only available in development or when explicitly enabled
+/// Open in Development; limited to the Admin role in every other environment
 /// </summary>
+[Authorize(Policy = AppPolicies.Diagnostics)]
 public class DiagnosticsController : Controller
 {
     private readonly IWebHostEnvironment _environment;
@@ -29,12 +32,6 @@ public class DiagnosticsController : Controller
     /// </summary>
     public IActionResult Assets()
     {
-        // Only allow in development or when explicitly enabled
-        if (!_environment.IsDevelopment() && !HttpContext.Request.Query.ContainsKey("enable"))
-        {
-            return NotFound();
-        }
-
         var diagnosticInfo = new
         {
             Environment = _environment.EnvironmentName,

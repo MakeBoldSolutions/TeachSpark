@@ -48,54 +48,29 @@ The system can recommend the best model based on:
 
 ## API Endpoints
 
-### Get Available Models
-
-```
-GET /api/models
-GET /api/models?forceRefresh=true
-```
+All model endpoints require a signed-in user. The anonymous `/api/models` controller was removed
+in ps-002; the endpoints below are the ones the worksheet generator uses.
 
 ### Get Education-Recommended Models
 
 ```
-GET /api/models/education
+GET /api/worksheet-generator/models
 ```
 
-### Get Model Recommendation
+### Get Model Recommendations for a Worksheet Type
 
 ```
-POST /api/models/recommend
-Content-Type: application/json
-
-{
-  "worksheetType": "reading-comprehension",
-  "difficultyLevel": "standard", 
-  "estimatedTokens": 2000,
-  "maxCostPerRequest": 0.50,
-  "prioritizeQuality": true
-}
-```
-
-### Get Specific Model
-
-```
-GET /api/models/{modelId}
+GET /api/worksheet-generator/models/recommend?worksheetType=reading-comprehension
 ```
 
 ### Estimate Cost
 
 ```
-POST /api/models/{modelId}/estimate-cost
-Content-Type: application/json
-
-1500
+POST /api/worksheet-generator/models/estimate-cost
 ```
 
-### Refresh Model Registry
-
-```
-POST /api/models/refresh
-```
+Refreshing the model registry from the provider is not exposed over HTTP; the registry refreshes
+itself when its cache expires.
 
 ## Integration with Worksheet Generation
 
@@ -227,7 +202,7 @@ The dynamic model selection system consists of:
 
 1. **`IModelRegistryService`**: Interface for model discovery and recommendation
 2. **`OpenAIModelRegistryService`**: Implementation with static + dynamic models
-3. **`ModelsController`**: REST API for model operations
+3. **`WorksheetGeneratorApiController`**: Signed-in REST API for model operations
 4. **`WorksheetGeneratorController`**: Integration with worksheet creation
 5. **`OpenAILlmService`**: Uses registry for intelligent model selection
 

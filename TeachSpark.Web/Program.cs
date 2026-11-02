@@ -53,6 +53,14 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.SlidingExpiration = true;
 });
 
+// Diagnostics reveal server paths and file listings: open in Development, Admin-only elsewhere
+var isDevelopment = builder.Environment.IsDevelopment();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(AppPolicies.Diagnostics, policy =>
+        policy.RequireAssertion(context => isDevelopment || context.User.IsInRole(AppRoles.Admin)));
+});
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
