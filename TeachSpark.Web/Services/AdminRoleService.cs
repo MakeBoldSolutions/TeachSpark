@@ -12,8 +12,10 @@ public static class AppRoles
 }
 
 /// <summary>
-/// Grants the Admin role to the accounts listed in TeachSpark:AdminEmails.
-/// No account is an administrator unless its email is configured there.
+/// Grants the Admin role to the accounts listed in TeachSpark:AdminEmails, at startup only.
+/// No account is an administrator unless its email is configured there. Email ownership is
+/// not verified (confirmation is off), so the role is never granted at registration: the
+/// operator registers first, then adds the email and restarts.
 /// </summary>
 public class AdminRoleService
 {
@@ -58,22 +60,18 @@ public class AdminRoleService
         foreach (var email in _adminEmails)
         {
             var user = await _userManager.FindByEmailAsync(email);
-            if (user != null)
+            if (user == null)
             {
-                await AssignIfConfiguredAsync(user);
+                _logger.LogWarning("Configured admin email {Email} has no account; register it, then restart", email);
+                continue;
             }
+
+            await GrantAdminAsync(user);
         }
     }
 
-    /// <summary>
-    /// Grants the Admin role to the user when their email is configured. Used after registration
-    /// so an operator who signs up after startup does not need a restart.
-    /// </summary>
-    public async Task AssignIfConfiguredAsync(ApplicationUser user)
+    private async Task GrantAdminAsync(ApplicationUser user)
     {
-        if (string.IsNullOrEmpty(user.Email) || !_adminEmails.Contains(user.Email))
-            return;
-
         if (await _userManager.IsInRoleAsync(user, AppRoles.Admin))
             return;
 

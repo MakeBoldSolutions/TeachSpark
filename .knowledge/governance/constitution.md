@@ -1,24 +1,12 @@
 <!--
 Sync Impact Report
-Version change: template -> 1.0.0
-Modified principles:
-- [PRINCIPLE_1_NAME] -> I. New And Changed Code Must Be Tested
-- [PRINCIPLE_2_NAME] -> II. Frontend Work Must Stay Within The Bootstrap And Webpack System
-- [PRINCIPLE_3_NAME] -> III. Data Access Must Use EF Core And DbContext Patterns
-- [PRINCIPLE_4_NAME] -> IV. Authorization Boundaries Must Be Explicit
-Added sections:
-- Technical Standards
-- Delivery Workflow
-Removed sections:
-- [PRINCIPLE_5_NAME] placeholder section
-Templates requiring updates:
-- ✅ .documentation/templates/plan-template.md
-- ✅ .documentation/templates/spec-template.md
-- ✅ .documentation/templates/tasks-template.md
-- ✅ README.md
-- ⚠ pending .github/agents/*.md review only; no file changes required for this amendment
+Version change: 1.0.0 -> 1.0.1 (PATCH: corrected stale statements, no principle change)
+Modified sections:
+- I. New And Changed Code Must Be Tested: names TeachSpark.Tests instead of stating no test project exists
+- Governance: DevSpark replaces Spec Kit as the workflow name
+Templates requiring updates: none
 Follow-up TODOs:
-- TODO(RATIFICATION_DATE): original ratification date is unknown after the template-only constitution was restored; confirm historical adoption date if needed
+- TODO(RATIFICATION_DATE): original ratification date is unknown; confirm historical adoption date if needed
 -->
 # TeachSpark Constitution
 
@@ -26,8 +14,9 @@ Follow-up TODOs:
 
 ### I. New And Changed Code Must Be Tested
 Every new feature, bug fix, and materially changed behavior MUST include automated
-tests. The repository currently lacks a dedicated test project, so this principle
-is forward-looking: legacy gaps do not excuse untested new work. Test scope MUST
+tests. Automated tests live in the TeachSpark.Tests project (xUnit, with
+WebApplicationFactory for integration tests). Legacy code without tests does not
+excuse untested new work. Test scope MUST
 match the change, including unit, integration, or contract coverage when the
 affected behavior crosses boundaries.
 
@@ -77,7 +66,7 @@ for security-sensitive behavior.
 ## Governance
 
 This constitution is the authoritative source for TeachSpark engineering
-constraints within Spec Kit workflows and related project planning artifacts.
+constraints within DevSpark workflows and related project planning artifacts.
 Amendments MUST be made by updating this file directly, summarizing the impact in
 the sync report, and aligning dependent templates in the same change. Compliance
 MUST be reviewed during specification, planning, task generation, implementation,
@@ -92,4 +81,4 @@ Versioning policy follows semantic versioning for governance:
 This amendment establishes the first project-specific constitution from a
 placeholder template, so version 1.0.0 is the correct initial formal release.
 
-**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): original adoption date unknown | **Last Amended**: 2026-03-29
+**Version**: 1.0.1 | **Ratified**: TODO(RATIFICATION_DATE): original adoption date unknown | **Last Amended**: 2026-11-01

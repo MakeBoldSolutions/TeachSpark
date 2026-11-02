@@ -1,6 +1,7 @@
 using System.Net;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -60,11 +61,15 @@ public class AdminAuthWebFactory : TeachSparkWebFactory
 {
     public const string AdminEmail = "admin@teachspark.test";
 
+    // Configured but with no account at startup: registering it must not grant Admin
+    public const string UnregisteredAdminEmail = "late-admin@teachspark.test";
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         base.ConfigureWebHost(builder);
 
         builder.UseSetting($"{AdminRoleService.AdminEmailsConfigKey}:0", AdminEmail);
+        builder.UseSetting($"{AdminRoleService.AdminEmailsConfigKey}:1", UnregisteredAdminEmail);
 
         builder.ConfigureTestServices(services =>
         {
@@ -141,7 +146,7 @@ public class AdminAuthorizationTests : IClassFixture<AdminAuthWebFactory>
     }
 
     [Fact]
-    public async Task AdminRoleService_GrantsAdminOnlyToConfiguredEmails()
+    public async Task EnsureAdminsAsync_GrantsAdminOnlyToConfiguredEmails()
     {
         using var scope = _factory.Services.CreateScope();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
@@ -152,10 +157,32 @@ public class AdminAuthorizationTests : IClassFixture<AdminAuthWebFactory>
         Assert.True((await userManager.CreateAsync(admin, "Password123")).Succeeded);
         Assert.True((await userManager.CreateAsync(teacher, "Password123")).Succeeded);
 
-        await adminRoles.AssignIfConfiguredAsync(admin);
-        await adminRoles.AssignIfConfiguredAsync(teacher);
+        await adminRoles.EnsureAdminsAsync();
 
         Assert.True(await userManager.IsInRoleAsync(admin, AppRoles.Admin));
         Assert.False(await userManager.IsInRoleAsync(teacher, AppRoles.Admin));
+    }
+
+    [Fact]
+    public async Task Register_WithConfiguredAdminEmail_DoesNotGrantAdmin()
+    {
+        var page = await _client.GetStringAsync("/Identity/Account/Register");
+        var token = Regex.Match(page, "name=\"__RequestVerificationToken\" type=\"hidden\" value=\"([^\"]+)\"").Groups[1].Value;
+        Assert.NotEmpty(token);
+
+        var response = await _client.PostAsync("/Identity/Account/Register", new FormUrlEncodedContent(new Dictionary<string, string>
+        {
+            ["Input.Email"] = AdminAuthWebFactory.UnregisteredAdminEmail,
+            ["Input.Password"] = "Password123",
+            ["Input.ConfirmPassword"] = "Password123",
+            ["__RequestVerificationToken"] = token,
+        }));
+        Assert.Equal(HttpStatusCode.Redirect, response.StatusCode);
+
+        using var scope = _factory.Services.CreateScope();
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        var user = await userManager.FindByEmailAsync(AdminAuthWebFactory.UnregisteredAdminEmail);
+        Assert.NotNull(user);
+        Assert.False(await userManager.IsInRoleAsync(user, AppRoles.Admin));
     }
 }

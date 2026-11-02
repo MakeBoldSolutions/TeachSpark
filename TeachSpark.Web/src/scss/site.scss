@@ -179,6 +179,17 @@ $dur-base: 200ms;
 @import '~bootstrap-icons/font/bootstrap-icons.css';
 @import '~datatables.net-bs5/css/dataTables.bootstrap5.min.css';
 
+// Brand fonts, bundled by webpack (latin subset, weights in use)
+@import '~@fontsource/be-vietnam-pro/latin-600.css';
+@import '~@fontsource/be-vietnam-pro/latin-700.css';
+@import '~@fontsource/be-vietnam-pro/latin-800.css';
+@import '~@fontsource/be-vietnam-pro/latin-900.css';
+@import '~@fontsource/inter-tight/latin-400.css';
+@import '~@fontsource/inter-tight/latin-500.css';
+@import '~@fontsource/inter-tight/latin-600.css';
+@import '~@fontsource/inter-tight/latin-700.css';
+@import '~@fontsource/inter-tight/latin-400-italic.css';
+
 // The two-peak brand mark, for CSS ornaments
 @function peak-mark($left, $right) {
   @return bootstrap.escape-svg(
