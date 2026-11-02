@@ -1,0 +1,91 @@
+using Microsoft.AspNetCore.Identity;
+using TeachSpark.Web.Data.Entities;
+
+namespace TeachSpark.Web.Services;
+
+/// <summary>
+/// Application role names
+/// </summary>
+public static class AppRoles
+{
+    public const string Admin = "Admin";
+}
+
+/// <summary>
+/// Grants the Admin role to the accounts listed in TeachSpark:AdminEmails.
+/// No account is an administrator unless its email is configured there.
+/// </summary>
+public class AdminRoleService
+{
+    public const string AdminEmailsConfigKey = "TeachSpark:AdminEmails";
+
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly ILogger<AdminRoleService> _logger;
+    private readonly HashSet<string> _adminEmails;
+
+    public AdminRoleService(
+        UserManager<ApplicationUser> userManager,
+        RoleManager<IdentityRole> roleManager,
+        IConfiguration configuration,
+        ILogger<AdminRoleService> logger)
+    {
+        _userManager = userManager;
+        _roleManager = roleManager;
+        _logger = logger;
+        _adminEmails = new HashSet<string>(
+            configuration.GetSection(AdminEmailsConfigKey).Get<string[]>() ?? [],
+            StringComparer.OrdinalIgnoreCase);
+    }
+
+    /// <summary>
+    /// Creates the Admin role if missing and grants it to every existing configured account.
+    /// Called once at startup.
+    /// </summary>
+    public async Task EnsureAdminsAsync()
+    {
+        if (!await _roleManager.RoleExistsAsync(AppRoles.Admin))
+        {
+            await _roleManager.CreateAsync(new IdentityRole(AppRoles.Admin));
+        }
+
+        if (_adminEmails.Count == 0)
+        {
+            _logger.LogWarning("No admin accounts configured ({ConfigKey}); the admin area is unreachable", AdminEmailsConfigKey);
+            return;
+        }
+
+        foreach (var email in _adminEmails)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user != null)
+            {
+                await AssignIfConfiguredAsync(user);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Grants the Admin role to the user when their email is configured. Used after registration
+    /// so an operator who signs up after startup does not need a restart.
+    /// </summary>
+    public async Task AssignIfConfiguredAsync(ApplicationUser user)
+    {
+        if (string.IsNullOrEmpty(user.Email) || !_adminEmails.Contains(user.Email))
+            return;
+
+        if (await _userManager.IsInRoleAsync(user, AppRoles.Admin))
+            return;
+
+        var result = await _userManager.AddToRoleAsync(user, AppRoles.Admin);
+        if (result.Succeeded)
+        {
+            _logger.LogInformation("Granted {Role} role to {Email}", AppRoles.Admin, user.Email);
+        }
+        else
+        {
+            _logger.LogError("Failed to grant {Role} role to {Email}: {Errors}",
+                AppRoles.Admin, user.Email, string.Join("; ", result.Errors.Select(e => e.Description)));
+        }
+    }
+}
