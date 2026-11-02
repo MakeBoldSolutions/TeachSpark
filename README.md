@@ -217,6 +217,11 @@ We welcome contributions from the community! Please see our [Contributing Guidel
 - ❓ **Questions**: [Start a discussion](https://github.com/MakeBoldSolutions/TeachSpark/discussions)
 - 📧 **Contact**: Please use GitHub Issues for all inquiries
 
+## Repo Story
+
+An evidence-based narrative of this repository's development history, contributor patterns, and architecture:
+[Repo Story (2026-11-02)](.knowledge/guides/repo-story/repo-story-2026-11-02.md)
+
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
