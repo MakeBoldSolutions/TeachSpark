@@ -1,6 +1,6 @@
 @{
     ViewData["Title"] = "AI-Powered Worksheet Generator for Teachers | TeachSpark";
-    ViewData["Description"] = "Empower your teaching with TeachSpark's collaborative AI platform. Create engaging, standards-aligned worksheets that match your teaching style in seconds.";
+    ViewData["Description"] = "Paste a passage and generate a reading, vocabulary, grammar, writing or literary-analysis worksheet with an optional answer key, aligned to Common Core ELA standards.";
 }
 
 @if (User.Identity?.IsAuthenticated == true)
@@ -22,11 +22,11 @@
             <span class="ts-eyebrow">AI worksheet generator for teachers</span>
             <h1>
                 Professional worksheets.<br />
-                <span class="ts-accent">In seconds, on your terms.</span>
+                <span class="ts-accent">In minutes, on your terms.</span>
             </h1>
             <p class="lead">
-                Paste a passage, pick a format, and get a standards-aligned worksheet with an answer key.
-                You control the templates and prompts behind the AI.
+                Paste a passage, pick a format, and get a worksheet with an optional answer key.
+                You choose the template, difficulty and Bloom's level, and add your own instructions.
             </p>
             <div class="ts-hero-actions">
                 @if (User.Identity?.IsAuthenticated == true)
@@ -49,16 +49,16 @@
                 }
             </div>
             <div class="ts-hero-proof">
-                <span><i class="bi bi-bookmark-check"></i>Common Core aligned</span>
-                <span><i class="bi bi-key"></i>Answer key included</span>
-                <span><i class="bi bi-sliders"></i>Editable prompts</span>
+                <span><i class="bi bi-bookmark-check"></i>Common Core ELA standards</span>
+                <span><i class="bi bi-key"></i>Optional answer key</span>
+                <span><i class="bi bi-sliders"></i>Your own instructions</span>
             </div>
         </div>
         <div class="col-lg-5">
             <div class="ts-hero-panel">
                 <div class="ts-hero-panel-head">
                     <p class="ts-hero-panel-title">Choose a worksheet type</p>
-                    <span class="badge badge-soft-rust">4 formats</span>
+                    <span class="badge badge-soft-rust">5 formats</span>
                 </div>
                 <div class="row g-2">
                     <div class="col-6">
@@ -94,6 +94,15 @@
                             <div>
                                 <div class="ts-type-name">Creative writing</div>
                                 <div class="ts-type-desc">Text-inspired prompts</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="ts-type-tile">
+                            <span class="ts-type-icon"><i class="bi bi-search"></i></span>
+                            <div>
+                                <div class="ts-type-name">Literary analysis</div>
+                                <div class="ts-type-desc">Theme, character and craft</div>
                             </div>
                         </div>
                     </div>
@@ -133,11 +142,11 @@
                 </div>
                 <div class="card-body p-4">
                     <ul class="ts-check-list">
-                        <li><i class="bi bi-check-circle-fill"></i><span><strong>Teacher Control</strong> — Customize AI prompts and templates to your style</span></li>
-                        <li><i class="bi bi-check-circle-fill"></i><span><strong>Collaborative Platform</strong> — Share and refine best practices with educators</span></li>
-                        <li><i class="bi bi-check-circle-fill"></i><span><strong>Template Mastery</strong> — Edit system and user prompts for perfect results</span></li>
-                        <li><i class="bi bi-check-circle-fill"></i><span><strong>Educational AI Leadership</strong> — Shape AI's role in your classroom</span></li>
-                        <li><i class="bi bi-check-circle-fill"></i><span><strong>Continuous Improvement</strong> — Platform evolves with teacher feedback</span></li>
+                        <li><i class="bi bi-check-circle-fill"></i><span><strong>Minutes, not hours</strong> — Turn a passage you already use into a ready-to-print worksheet</span></li>
+                        <li><i class="bi bi-check-circle-fill"></i><span><strong>Fits your class</strong> — Pick the difficulty, Bloom's level and number of questions</span></li>
+                        <li><i class="bi bi-check-circle-fill"></i><span><strong>Teacher control</strong> — Choose a template and add your own instructions to steer the AI</span></li>
+                        <li><i class="bi bi-check-circle-fill"></i><span><strong>Two versions</strong> — A teacher copy with answers and a student copy without</span></li>
+                        <li><i class="bi bi-check-circle-fill"></i><span><strong>Built in the open</strong> — A public roadmap shaped by teacher feedback</span></li>
                     </ul>
                 </div>
             </div>
@@ -164,14 +173,14 @@
             <div class="ts-step">
             <div class="ts-step-circle">2</div>
             <h3>Customize &amp; Configure</h3>
-            <p>Choose your template, set the difficulty level, align to Common Core standards, and add any custom instructions.</p>
+            <p>Choose a template, set the difficulty and Bloom's level, optionally pick a Common Core standard, and add your own instructions.</p>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="ts-step">
             <div class="ts-step-circle">3</div>
             <h3>Generate &amp; Use</h3>
-            <p>Your professional worksheet is ready in seconds. Download, print, or share — with a full answer key included.</p>
+            <p>Your worksheet is ready in moments. Review it, switch to the student version, and print, with an answer key if you asked for one.</p>
             </div>
         </div>
     </div>
@@ -275,28 +284,28 @@
 <section class="ts-cta-banner ts-section">
     <div class="text-center mb-4">
         <h2 class="ts-section-title fs-1 mb-2">Why teachers choose TeachSpark</h2>
-        <p class="opacity-75 mb-0">Empowerment through collaboration, customization, and control</p>
+        <p class="opacity-75 mb-0">Practical AI that keeps the teacher in charge</p>
     </div>
     <div class="row g-4 text-center">
         <div class="col-lg-3 col-6">
             <div class="benefit-icon mx-auto"><i class="bi bi-gear-fill"></i></div>
-            <h6 class="fw-bold text-white mb-1">Complete Control</h6>
-            <p class="small opacity-75 mb-0">Customize every aspect of AI generation to match your style</p>
+            <h6 class="fw-bold text-white mb-1">Teacher Control</h6>
+            <p class="small opacity-75 mb-0">Templates, difficulty, Bloom's level and your own instructions</p>
         </div>
         <div class="col-lg-3 col-6">
-            <div class="benefit-icon mx-auto"><i class="bi bi-people-fill"></i></div>
-            <h6 class="fw-bold text-white mb-1">Teacher Community</h6>
-            <p class="small opacity-75 mb-0">Collaborate to improve AI integration in education</p>
+            <div class="benefit-icon mx-auto"><i class="bi bi-printer-fill"></i></div>
+            <h6 class="fw-bold text-white mb-1">Ready to Print</h6>
+            <p class="small opacity-75 mb-0">Teacher and student versions of every worksheet</p>
         </div>
         <div class="col-lg-3 col-6">
             <div class="benefit-icon mx-auto"><i class="bi bi-award-fill"></i></div>
             <h6 class="fw-bold text-white mb-1">Standards-Aligned</h6>
-            <p class="small opacity-75 mb-0">Every worksheet tied to Common Core ELA standards</p>
+            <p class="small opacity-75 mb-0">Align to Common Core ELA standards, with more grades coming</p>
         </div>
         <div class="col-lg-3 col-6">
             <div class="benefit-icon mx-auto"><i class="bi bi-arrow-up-circle-fill"></i></div>
-            <h6 class="fw-bold text-white mb-1">Always Improving</h6>
-            <p class="small opacity-75 mb-0">Platform evolves with your feedback and ideas</p>
+            <h6 class="fw-bold text-white mb-1">Open Roadmap</h6>
+            <p class="small opacity-75 mb-0">See what works today and what's coming next</p>
         </div>
     </div>
 </section>
@@ -308,13 +317,13 @@
             <div class="ts-section-label">Get started</div>
             <h2 class="ts-section-title fs-2 mt-1">Bring your own teaching voice to AI</h2>
             <p class="text-muted mt-2 mb-3">
-                Become part of a community of educators leading the integration of AI in classrooms.
-                Take control of your teaching tools and help shape the future of educational technology.
+                TeachSpark is an educational lab developed in the open. Try it with your own passages,
+                and tell us what would make it more useful in your classroom.
             </p>
             <ul class="ts-check-list">
-                <li><i class="bi bi-check-circle-fill"></i>Customize AI prompts to match your teaching style</li>
-                <li><i class="bi bi-check-circle-fill"></i>Collaborate with innovative educators worldwide</li>
-                <li><i class="bi bi-check-circle-fill"></i>Professional results that reflect your classroom</li>
+                <li><i class="bi bi-check-circle-fill"></i>Add your own instructions to every worksheet</li>
+                <li><i class="bi bi-check-circle-fill"></i>Five English Language Arts formats</li>
+                <li><i class="bi bi-check-circle-fill"></i>Help set the roadmap: <a asp-controller="Home" asp-action="Plan">see what's next</a></li>
                 <li><i class="bi bi-check-circle-fill"></i>Free to get started — no credit card needed</li>
             </ul>
         </div>
@@ -332,7 +341,7 @@
                     <a asp-controller="WorksheetGenerator" asp-action="Create" class="btn btn-primary btn-lg mb-3 w-100">
                         <i class="bi bi-lightning-charge-fill me-2"></i>Create a Worksheet
                     </a>
-                    <p class="small text-muted mb-0">Ready to revolutionize your teaching?</p>
+                    <p class="small text-muted mb-0">Paste a passage to get started.</p>
                 }
             </div>
         </div>
@@ -356,19 +365,19 @@
                     </h3>
                     <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
                         <div class="accordion-body">
-                            Most worksheets are generated in under 60 seconds. Paste your text, select your preferences, and TeachSpark's AI creates a professional, standards-aligned worksheet instantly.
+                            Usually within a minute or two, depending on the length of your passage and the AI model. Paste your text, choose your options, and generate.
                         </div>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <h3 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                            Can I customize the worksheet templates?
+                            How much control do I have over the AI?
                         </button>
                     </h3>
                     <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                         <div class="accordion-body">
-                            Absolutely. TeachSpark lets you edit both the system and user prompts used by the AI, giving you fine-grained control over the output — from question types to tone and difficulty.
+                            You choose the worksheet type, template, difficulty, Bloom's level and number of questions, decide whether to include an answer key, and can add your own instructions to each worksheet. Templates and their underlying prompts are managed by administrators today, and editing a generated worksheet before printing is on the roadmap.
                         </div>
                     </div>
                 </div>
@@ -380,7 +389,7 @@
                     </h3>
                     <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                         <div class="accordion-body">
-                            Yes. You can optionally select a specific Common Core standard when creating a worksheet, and TeachSpark will align the content and questions accordingly.
+                            You can optionally select a Common Core ELA standard when creating a worksheet, and TeachSpark aligns the questions to it. Today the generator offers grade 8 standards; other grades and subjects are next on the roadmap.
                         </div>
                     </div>
                 </div>
@@ -392,7 +401,7 @@
                     </h3>
                     <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                         <div class="accordion-body">
-                            Creating an account is free. Worksheet generation uses AI models with small per-request costs that are tracked transparently so you're always in control of usage.
+                            Yes. Creating an account and generating worksheets is free while TeachSpark is an educational lab. We track the AI cost of every worksheet, and fair-use limits are on the roadmap to keep it that way.
                         </div>
                     </div>
                 </div>
