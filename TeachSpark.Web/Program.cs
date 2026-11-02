@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TeachSpark.Web;
 using TeachSpark.Web.Data;
@@ -39,6 +40,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     // Email confirmation
     options.SignIn.RequireConfirmedEmail = false;
 })
+.AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<ApplicationDbContext>();
 
 // Configure cookie settings
@@ -57,6 +59,9 @@ builder.Services.AddControllersWithViews();
 // Register the assets service for webpack asset resolution
 builder.Services.AddSingleton<IAssetsService, AssetsService>();
 
+// Register the admin role service (grants Admin to TeachSpark:AdminEmails)
+builder.Services.AddScoped<AdminRoleService>();
+
 // Register the academic standards import service
 builder.Services.AddScoped<AcademicStandardsImportService>();
 
@@ -73,6 +78,8 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     context.Database.EnsureCreated();
+
+    await scope.ServiceProvider.GetRequiredService<AdminRoleService>().EnsureAdminsAsync();
 }
 
 // Configure the HTTP request pipeline.

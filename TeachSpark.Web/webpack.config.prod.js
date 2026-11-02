@@ -148,6 +148,10 @@ module.exports = {
                 {
                     from: 'src/favicon.ico',
                     to: 'favicon.ico'
+                },
+                {
+                    from: 'src/favicon.svg',
+                    to: 'favicon.svg'
                 }
             ]        }),        new WebpackManifestPlugin({
             fileName: 'assets-manifest.json',

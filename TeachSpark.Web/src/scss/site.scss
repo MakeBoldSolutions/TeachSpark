@@ -1,234 +1,509 @@
 // ============================================================
-// TeachSpark Design System
-// Modern, mobile-first, teacher-friendly UI
+// TeachSpark — Make Bold Spark theme
+// Built on the Make Bold Solutions design system:
+// rust on cream, Be Vietnam Pro display, Inter Tight body,
+// modest radii, warm hairlines, quiet shadows.
 // ============================================================
 
-// @use rules must come first in Sass
 @use 'sass:color';
 
-// ── Design Tokens ────────────────────────────────────────────
-$ts-indigo: #4f46e5;
-$ts-indigo-dark: #3730a3;
-$ts-indigo-light: #818cf8;
-$ts-amber: #f59e0b;
-$ts-amber-dark: #d97706;
-$ts-teal: #0891b2;
-$ts-green: #059669;
-$ts-red: #dc2626;
-$ts-slate-50: #f8fafc;
-$ts-slate-100: #f1f5f9;
-$ts-slate-200: #e2e8f0;
-$ts-slate-500: #64748b;
-$ts-slate-700: #334155;
-$ts-slate-900: #0f172a;
+// ── Brand Tokens ─────────────────────────────────────────────
+// Rust (primary brand)
+$rust-50: #fbeeea;
+$rust-100: #f4d2c8;
+$rust-200: #e6a392;
+$rust-400: #b8431f;
+$rust-500: #982407;
+$rust-600: #841e05;
+$rust-700: #6c1804;
 
-// ── Bootstrap Variable Overrides ─────────────────────────────
-$primary: $ts-indigo;
-$secondary: $ts-slate-500;
-$success: $ts-green;
-$info: $ts-teal;
-$warning: $ts-amber;
-$danger: $ts-red;
-$light: $ts-slate-100;
-$dark: $ts-slate-900;
-$body-bg: $ts-slate-50;
-$body-color: $ts-slate-700;
-$link-color: $ts-indigo;
-$font-family-sans-serif:
-  'Inter',
-  'Segoe UI',
+// Ember (secondary accent)
+$ember-50: #fdf1e6;
+$ember-100: #f9dabc;
+$ember-200: #f2b277;
+$ember-500: #c6620c;
+$ember-600: #a8520a;
+$ember-700: #864108;
+
+// Ink (warm neutrals)
+$ink-900: #1e1e1e;
+$ink-800: #2c2c2b;
+$ink-700: #3d3d3b;
+$ink-600: #56544f;
+$ink-500: #76736c;
+$ink-400: #9b988f;
+$ink-300: #c2bfb6;
+$ink-200: #ddd9d0;
+$ink-100: #ece9e2;
+$ink-50: #f4f2ec;
+
+// Paper
+$cream: #f8f6f2;
+$cream-deep: #efece4;
+$white: #fff;
+
+// Status (muted, finance-grade)
+$positive: #2f6f4c;
+$positive-soft: #e4efe7;
+$caution: #b8821a;
+$caution-text: #7a560f;
+$caution-soft: #f6edd6;
+$critical: #a8321a;
+$critical-soft: #f6e2dc;
+$info: #2f5a8f;
+$info-soft: #e2e9f2;
+
+// Type
+$font-display: 'Be Vietnam Pro', 'Inter Tight', system-ui, sans-serif;
+$font-body:
+  'Inter Tight',
   system-ui,
   -apple-system,
+  'Segoe UI',
   sans-serif;
-$font-size-base: 1rem;
-$line-height-base: 1.65;
-$border-radius: 0.5rem;
-$border-radius-lg: 0.75rem;
-$border-radius-xl: 1rem;
-$card-border-radius: 0.75rem;
-$card-border-color: transparent;
-$card-box-shadow:
-  0 1px 3px rgba(0, 0, 0, 0.07),
-  0 4px 16px rgba(79, 70, 229, 0.06);
-$btn-border-radius: 0.5rem;
-$btn-padding-y: 0.55rem;
-$btn-padding-x: 1.25rem;
-$btn-font-weight: 600;
-$input-border-color: $ts-slate-200;
-$input-focus-border-color: $ts-indigo;
-$input-focus-box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.18);
-$input-border-radius: 0.5rem;
-$input-padding-y: 0.6rem;
-$input-padding-x: 0.875rem;
-$navbar-nav-link-padding-x: 0.875rem;
 
-// ── Bootstrap Core ───────────────────────────────────────────
-@use '~bootstrap/scss/bootstrap';
+// Effects
+$shadow-xs: 0 1px 2px rgba(30, 30, 30, 0.06);
+$shadow-sm:
+  0 1px 3px rgba(30, 30, 30, 0.08),
+  0 1px 2px rgba(30, 30, 30, 0.05);
+$shadow-md:
+  0 4px 12px rgba(30, 30, 30, 0.08),
+  0 2px 4px rgba(30, 30, 30, 0.05);
+$shadow-lg:
+  0 12px 28px rgba(30, 30, 30, 0.1),
+  0 4px 10px rgba(30, 30, 30, 0.06);
+$shadow-brand: 0 8px 24px rgba(152, 36, 7, 0.2);
+$focus-ring: 0 0 0 3px rgba($ember-500, 0.4);
+$ease-standard: cubic-bezier(0.2, 0, 0.1, 1);
+$dur-fast: 120ms;
+$dur-base: 200ms;
+
+// ── Bootstrap Core (configured with brand values) ────────────
+@use '~bootstrap/scss/bootstrap' with (
+  $primary: $rust-500,
+  $secondary: $ink-600,
+  $success: $positive,
+  $info: $info,
+  $warning: $caution,
+  $danger: $critical,
+  $light: $cream-deep,
+  $dark: $ink-900,
+  $min-contrast-ratio: 4.5,
+  $body-bg: $cream,
+  $body-color: $ink-800,
+  $body-secondary-color: $ink-600,
+  $body-tertiary-bg: $ink-50,
+  $link-color: $rust-500,
+  $link-hover-color: $ember-600,
+  $link-decoration: none,
+  $link-hover-decoration: underline,
+  $font-family-sans-serif: $font-body,
+  $font-size-base: 1rem,
+  $line-height-base: 1.55,
+  $headings-font-family: $font-display,
+  $headings-font-weight: 700,
+  $headings-color: $ink-900,
+  $headings-line-height: 1.15,
+  $display-font-family: $font-display,
+  $display-font-weight: 800,
+  $display-line-height: 1.05,
+  $lead-font-weight: 400,
+  $border-color: $ink-200,
+  $border-radius: 6px,
+  $border-radius-sm: 4px,
+  $border-radius-lg: 10px,
+  $border-radius-xl: 16px,
+  $border-radius-xxl: 16px,
+  $box-shadow-sm: $shadow-xs,
+  $box-shadow: $shadow-md,
+  $box-shadow-lg: $shadow-lg,
+  $focus-ring-color: rgba($ember-500, 0.4),
+  $focus-ring-width: 3px,
+  $component-active-bg: $rust-500,
+  $btn-font-weight: 600,
+  $btn-padding-y: 0.55rem,
+  $btn-padding-x: 1.15rem,
+  $btn-focus-box-shadow: $focus-ring,
+  $input-bg: $white,
+  $input-border-color: $ink-400,
+  $input-color: $ink-900,
+  $input-placeholder-color: $ink-500,
+  $input-focus-border-color: $ember-500,
+  $input-focus-box-shadow: $focus-ring,
+  $input-padding-y: 0.6rem,
+  $input-padding-x: 0.875rem,
+  $form-label-font-weight: 600,
+  $form-check-input-checked-bg-color: $rust-500,
+  $form-check-input-checked-border-color: $rust-500,
+  $form-check-input-focus-border: $ember-500,
+  $form-switch-focus-color: $ember-500,
+  $card-bg: $white,
+  $card-border-color: $ink-200,
+  $card-cap-bg: $cream,
+  $card-cap-padding-y: 0.85rem,
+  $dropdown-border-color: $ink-200,
+  $dropdown-link-color: $ink-800,
+  $dropdown-link-hover-bg: $rust-50,
+  $dropdown-link-hover-color: $rust-600,
+  $dropdown-link-active-bg: $rust-500,
+  $dropdown-box-shadow: $shadow-md,
+  $accordion-button-active-bg: $rust-50,
+  $accordion-button-active-color: $rust-700,
+  $accordion-button-focus-box-shadow: $focus-ring,
+  $accordion-border-color: $ink-200,
+  // Exact hex icon colors: Bootstrap's computed shades come out as
+  // rgb() with % channels, which corrupts the escaped SVG data URIs.
+  $accordion-icon-color: $ink-800,
+  $accordion-icon-active-color: $rust-700,
+  $accordion-icon-color-dark: $rust-200,
+  $accordion-icon-active-color-dark: $rust-200,
+  $nav-pills-link-active-bg: $rust-500,
+  $pagination-active-bg: $rust-500,
+  $pagination-active-border-color: $rust-500,
+  $pagination-color: $rust-500,
+  $progress-bar-bg: $rust-500,
+  $list-group-active-bg: $rust-500,
+  $list-group-active-border-color: $rust-500,
+  $badge-font-weight: 600,
+  $badge-border-radius: 4px,
+  $table-striped-bg: rgba($ink-900, 0.025),
+  $table-hover-bg: rgba($rust-500, 0.04),
+  $table-border-color: $ink-200,
+  $modal-content-border-color: $ink-200,
+  $modal-content-box-shadow-sm-up: $shadow-lg,
+  $toast-border-color: $ink-200,
+  $enable-shadows: false,
+  $enable-gradients: false
+);
 @import '~bootstrap-icons/font/bootstrap-icons.css';
 @import '~datatables.net-bs5/css/dataTables.bootstrap5.min.css';
-@import 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap';
+
+// Brand fonts, bundled by webpack (latin subset, weights in use)
+@import '~@fontsource/be-vietnam-pro/latin-600.css';
+@import '~@fontsource/be-vietnam-pro/latin-700.css';
+@import '~@fontsource/be-vietnam-pro/latin-800.css';
+@import '~@fontsource/be-vietnam-pro/latin-900.css';
+@import '~@fontsource/inter-tight/latin-400.css';
+@import '~@fontsource/inter-tight/latin-500.css';
+@import '~@fontsource/inter-tight/latin-600.css';
+@import '~@fontsource/inter-tight/latin-700.css';
+@import '~@fontsource/inter-tight/latin-400-italic.css';
+
+// The two-peak brand mark, for CSS ornaments
+@function peak-mark($left, $right) {
+  @return bootstrap.escape-svg(
+    url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 412 208'><path fill='#{$left}' d='M287.64,207.95H0L236.35,24.05l51.3,183.9Z'/><path fill='#{$right}' d='M412,207.95H103.29L368.03,0l43.97,207.95Z'/></svg>")
+  );
+}
 
 // ── CSS Custom Properties ────────────────────────────────────
+// --mbs-* are the brand tokens; --ts-* are kept as aliases so
+// existing view markup keeps resolving to brand values.
 :root {
-  --ts-brand: #{$ts-indigo};
-  --ts-brand-dark: #{$ts-indigo-dark};
-  --ts-brand-light: #{$ts-indigo-light};
-  --ts-primary: #{$ts-indigo};
-  --ts-amber: #{$ts-amber};
-  --ts-amber-dark: #{$ts-amber-dark};
-  --ts-amber-light: #{rgba($ts-amber, 0.13)};
-  --ts-success: #{$ts-green};
-  --ts-success-light: #{rgba($ts-green, 0.1)};
-  --ts-border: #{$ts-slate-200};
-  --ts-border-dark: #{$ts-slate-500};
-  --ts-surface-alt: #{$ts-slate-50};
-  --ts-text-muted: #{$ts-slate-500};
-  --ts-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.07), 0 4px 16px rgba(79, 70, 229, 0.06);
-  --ts-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08), 0 12px 32px rgba(79, 70, 229, 0.1);
-  --ts-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.1), 0 24px 48px rgba(79, 70, 229, 0.12);
-  --ts-radius: 0.75rem;
-  --ts-radius-lg: 1rem;
+  --mbs-rust: #{$rust-500};
+  --mbs-rust-strong: #{$rust-600};
+  --mbs-rust-soft: #{$rust-50};
+  --mbs-ember: #{$ember-500};
+  --mbs-ember-strong: #{$ember-600};
+  --mbs-ember-soft: #{$ember-50};
+  --mbs-ink: #{$ink-900};
+  --mbs-cream: #{$cream};
+  --mbs-cream-deep: #{$cream-deep};
+  --mbs-border: #{$ink-200};
+  --mbs-font-display: #{$font-display};
+  --mbs-font-body: #{$font-body};
+  --ts-brand: #{$rust-500};
+  --ts-brand-dark: #{$rust-600};
+  --ts-brand-light: #{$rust-200};
+  --ts-primary: #{$rust-500};
+  --ts-amber: #{$ember-500};
+  --ts-amber-dark: #{$ember-700};
+  --ts-amber-light: #{$ember-50};
+  --ts-success: #{$positive};
+  --ts-success-light: #{$positive-soft};
+  --ts-border: #{$ink-200};
+  --ts-border-dark: #{$ink-400};
+  --ts-surface-alt: #{$cream-deep};
+  --ts-text-muted: #{$ink-600};
+  --ts-shadow-sm: #{$shadow-sm};
+  --ts-shadow-md: #{$shadow-md};
+  --ts-shadow-lg: #{$shadow-lg};
+  --ts-radius: 10px;
+  --ts-radius-lg: 16px;
 }
 
 // ============================================================
-// GLOBAL RESETS & BASE
+// GLOBAL BASE
 // ============================================================
 html {
   scroll-behavior: smooth;
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   font-feature-settings: 'kern', 'liga', 'calt';
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizelegibility;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+h1,
+h2,
+h3,
+.h1,
+.h2,
+.h3 {
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+h1,
+.h1 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+h5,
+h6,
+.h5,
+.h6 {
+  font-weight: 600;
+}
+
+p {
+  text-wrap: pretty;
 }
 
 a {
-  text-decoration: none;
-  transition: color 0.15s ease;
+  transition: color $dur-fast $ease-standard;
 
   &:hover {
-    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+}
+
+::selection {
+  background: $ember-200;
+  color: $ink-900;
+}
+
+:focus-visible {
+  outline: 2px solid $ember-500;
+  outline-offset: 2px;
+}
+
+.text-muted {
+  color: $ink-600 !important;
+}
+
+.font-display {
+  font-family: $font-display;
+}
+
+// ============================================================
+// BRAND LOCKUP
+// ============================================================
+.ts-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none !important;
+  color: $ink-900;
+
+  .ts-brand-mark {
+    width: 40px;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  .ts-brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .ts-brand-name {
+    font-family: $font-display;
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+    color: $ink-900;
+
+    span {
+      color: $rust-500;
+    }
+  }
+
+  .ts-brand-sub {
+    margin-top: 0.3rem;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: $ink-600;
+  }
+
+  &.ts-brand-on-dark {
+    .ts-brand-name {
+      color: $cream;
+
+      span {
+        color: $ember-200;
+      }
+    }
+
+    .ts-brand-sub {
+      color: $ink-300;
+    }
   }
 }
 
 // ============================================================
 // NAVBAR
 // ============================================================
-.navbar-brand-ts {
-  font-weight: 800;
-  font-size: 1.25rem;
-  letter-spacing: -0.02em;
-  color: #fff !important;
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-  text-decoration: none !important;
-
-  .brand-icon {
-    width: 32px;
-    height: 32px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-  }
-
-  .brand-spark {
-    color: $ts-amber;
-  }
-}
-
 .navbar-ts {
-  background: linear-gradient(135deg, $ts-indigo-dark 0%, $ts-indigo 100%);
-  box-shadow: 0 2px 12px rgba(55, 48, 163, 0.35);
-  padding-top: 0.65rem;
-  padding-bottom: 0.65rem;
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  background: rgba($cream, 0.92);
+  backdrop-filter: saturate(1.2) blur(10px);
+  border-bottom: 1px solid $ink-100;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 
   .nav-link {
-    color: rgba(255, 255, 255, 0.82) !important;
+    position: relative;
+    color: $ink-800;
     font-weight: 500;
-    font-size: 0.9rem;
-    padding: 0.5rem 0.875rem !important;
-    border-radius: 0.4rem;
-    transition:
-      background 0.15s ease,
-      color 0.15s ease;
+    font-size: 0.95rem;
+    padding: 0.5rem 0.85rem !important;
+    border-radius: 4px;
     display: flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 0.4rem;
+    transition:
+      color $dur-fast $ease-standard,
+      background $dur-fast $ease-standard;
+
+    .bi {
+      color: $ink-500;
+      transition: color $dur-fast $ease-standard;
+    }
 
     &:hover,
-    &:focus,
-    &.active {
-      background: rgba(255, 255, 255, 0.15);
-      color: #fff !important;
+    &:focus-visible {
+      color: $rust-500;
       text-decoration: none;
+
+      .bi {
+        color: $rust-500;
+      }
+    }
+
+    &.active,
+    &[aria-current='page'] {
+      color: $rust-500;
+
+      .bi {
+        color: $rust-500;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0.85rem;
+        right: 0.85rem;
+        bottom: -0.8rem;
+        height: 2px;
+        background: $rust-500;
+      }
     }
   }
 
   .navbar-toggler {
-    border-color: rgba(255, 255, 255, 0.3);
-    padding: 0.35rem 0.6rem;
+    border-color: $ink-300;
+    padding: 0.4rem 0.6rem;
 
-    .navbar-toggler-icon {
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    &:focus {
+      box-shadow: $focus-ring;
     }
   }
 
   .dropdown-menu {
-    border: none;
-    box-shadow: var(--ts-shadow-md);
-    border-radius: var(--ts-radius);
-    padding: 0.5rem;
-    margin-top: 0.35rem;
+    border-radius: 10px;
+    padding: 0.4rem;
+    margin-top: 0.5rem;
 
     .dropdown-item {
-      border-radius: 0.4rem;
-      padding: 0.5rem 0.875rem;
-      font-size: 0.875rem;
+      border-radius: 4px;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.9rem;
       font-weight: 500;
-      color: $ts-slate-700;
-      transition: background 0.12s ease;
 
-      &:hover {
-        background: $ts-slate-100;
-        color: $ts-indigo;
+      .bi {
+        color: $ink-500;
       }
 
-      &:active {
-        background: $ts-indigo;
-        color: #fff;
+      &:hover .bi,
+      &:focus .bi {
+        color: $rust-500;
+      }
+
+      &:active .bi {
+        color: inherit;
       }
     }
 
     .dropdown-header {
-      font-size: 0.7rem;
-      font-weight: 700;
+      font-size: 0.68rem;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: $ts-slate-500;
-      padding: 0.5rem 0.875rem 0.25rem;
+      letter-spacing: 0.18em;
+      color: $ember-700;
+      padding: 0.55rem 0.8rem 0.3rem;
     }
 
     .dropdown-divider {
-      border-color: $ts-slate-200;
-      margin: 0.35rem 0.5rem;
+      border-color: $ink-100;
+      margin: 0.35rem 0.4rem;
     }
+  }
+
+  .ts-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: $rust-500;
+    color: $cream;
+    font-family: $font-display;
+    font-size: 0.8rem;
+    font-weight: 700;
   }
 }
 
-// Mobile nav touch targets
 @media (max-width: 991.98px) {
   .navbar-ts {
-    .nav-link {
-      padding: 0.65rem 0.875rem !important;
-      font-size: 0.95rem;
+    .navbar-collapse {
+      padding: 0.75rem 0 0.5rem;
     }
 
-    .navbar-collapse {
-      padding-bottom: 0.5rem;
+    .nav-link {
+      padding: 0.7rem 0.5rem !important;
+      font-size: 1rem;
+
+      &.active::after,
+      &[aria-current='page']::after {
+        display: none;
+      }
     }
   }
 }
@@ -237,356 +512,509 @@ a {
 // MAIN CONTENT WRAPPER
 // ============================================================
 main > .container {
-  padding-top: 2rem;
-  padding-bottom: 3rem;
+  padding-top: 2.5rem;
+  padding-bottom: 4rem;
 }
 
 // ============================================================
-// CARDS
+// EYEBROWS & SECTION HEADINGS
 // ============================================================
-.card {
-  box-shadow: var(--ts-shadow-sm);
-  border: 1px solid $ts-slate-200;
-  transition:
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+.ts-eyebrow,
+.ts-section-label,
+.ts-label {
+  display: inline-block;
+  font-family: $font-body;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $ember-700;
+}
 
-  &.card-hover:hover {
-    box-shadow: var(--ts-shadow-md);
-    transform: translateY(-2px);
+.ts-section-label {
+  margin-bottom: 0.6rem;
+}
+
+.ts-section-title {
+  font-family: $font-display;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: $ink-900;
+}
+
+.ts-section-intro {
+  max-width: 60ch;
+  color: $ink-600;
+  font-size: 1.05rem;
+}
+
+// Small rust rule used under headings and as an accent
+.ts-rule {
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: $rust-500;
+  border: 0;
+  margin: 1rem 0;
+  opacity: 1;
+
+  &.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
-.card-header {
-  font-weight: 600;
-  font-size: 0.925rem;
-  background: $ts-slate-50;
-  border-bottom: 1px solid $ts-slate-200;
-}
-
-// Icon feature card (round icon + text)
-.feature-icon-wrap {
-  width: 72px;
-  height: 72px;
-  border-radius: 16px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
-  font-size: 1.75rem;
-}
-
 // ============================================================
-// HERO SECTION
+// HERO (home)
 // ============================================================
 .ts-hero {
-  background: linear-gradient(
-    135deg,
-    $ts-indigo 0%,
-    $ts-indigo-dark 50%,
-    color.adjust($ts-indigo-dark, $lightness: -8%) 100%
-  );
-  border-radius: 1.25rem;
-  padding: 3.5rem 2rem;
   position: relative;
-  overflow: hidden;
-  margin-bottom: 3rem;
+  padding: 1.5rem 0 3.5rem;
+  margin-bottom: 3.5rem;
+  border-bottom: 1px solid $ink-200;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: -60px;
-    right: -60px;
-    width: 280px;
-    height: 280px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 50%;
+  h1 {
+    font-size: clamp(2.5rem, 4.2vw + 1rem, 4.25rem);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    color: $ink-900;
+    margin: 1.1rem 0 0;
+
+    .ts-accent {
+      color: $rust-500;
+    }
   }
+
+  .lead {
+    font-size: 1.2rem;
+    line-height: 1.55;
+    color: $ink-600;
+    max-width: 52ch;
+    margin: 1.4rem 0 0;
+  }
+
+  .ts-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2rem;
+  }
+
+  .ts-hero-proof {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: $ink-700;
+
+    .bi {
+      color: $ember-600;
+      margin-right: 0.35rem;
+    }
+  }
+}
+
+// Worksheet "preview" panel in the hero
+.ts-hero-panel {
+  position: relative;
+  background: $white;
+  border: 1px solid $ink-200;
+  border-radius: 16px;
+  box-shadow: $shadow-lg;
+  padding: 1.5rem;
+  z-index: 1;
 
   &::after {
     content: '';
     position: absolute;
-    bottom: -80px;
-    right: 10%;
-    width: 200px;
-    height: 200px;
-    background: rgba($ts-amber, 0.1);
-    border-radius: 50%;
+    left: -36px;
+    bottom: -30px;
+    width: 130px;
+    aspect-ratio: 412 / 208;
+    background: peak-mark($rust-100, $ink-200) no-repeat center / contain;
+    z-index: -1;
   }
 
-  h1 {
-    font-weight: 800;
-    letter-spacing: -0.03em;
+  .ts-hero-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid $ink-100;
   }
 
-  .lead {
-    opacity: 0.9;
-    font-size: 1.1rem;
+  .ts-hero-panel-title {
+    font-family: $font-display;
+    font-weight: 700;
+    font-size: 1rem;
+    color: $ink-900;
+    margin: 0;
   }
 }
 
+.ts-type-tile {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.85rem;
+  border: 1px solid $ink-100;
+  border-radius: 6px;
+  background: $cream;
+  height: 100%;
+
+  .ts-type-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: $rust-50;
+    color: $rust-500;
+    font-size: 1.05rem;
+  }
+
+  .ts-type-name {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: $ink-900;
+    line-height: 1.25;
+  }
+
+  .ts-type-desc {
+    font-size: 0.8rem;
+    color: $ink-600;
+  }
+}
+
+// Kept for older markup: small outlined chips
 .ts-badge-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  border-radius: 100px;
-  padding: 0.35rem 0.85rem;
-  font-size: 0.82rem;
+  gap: 0.4rem;
+  background: $white;
+  color: $ink-700;
+  border: 1px solid $ink-200;
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(4px);
+
+  .bi {
+    color: $ember-600;
+  }
 }
 
 // ============================================================
-// STEP CIRCLES (How It Works)
+// STATS STRIP
+// ============================================================
+.ts-stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  padding: 1.75rem 0;
+  border-top: 1px solid $ink-200;
+  border-bottom: 1px solid $ink-200;
+  background: $white;
+  margin-bottom: 4rem;
+
+  .ts-stat {
+    text-align: center;
+  }
+
+  .ts-stat-value {
+    font-family: $font-display;
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 1;
+    color: $rust-500;
+  }
+
+  .ts-stat-label {
+    margin-top: 0.45rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    color: $ink-600;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .ts-stat-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// ============================================================
+// SECTIONS
+// ============================================================
+.ts-section {
+  margin-bottom: 5rem;
+}
+
+.ts-section-sunken {
+  background: $cream-deep;
+  border: 1px solid $ink-100;
+  border-radius: 16px;
+  padding: 3rem 1.5rem;
+
+  @media (min-width: 992px) {
+    padding: 4rem 3rem;
+  }
+}
+
+// ============================================================
+// STEPS (How It Works)
 // ============================================================
 .ts-step-circle {
   width: 52px;
   height: 52px;
-  border-radius: 50%;
+  border-radius: 6px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.15rem;
+  font-family: $font-display;
+  font-size: 1.3rem;
   font-weight: 800;
-  margin: 0 auto 1rem;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  margin: 0 auto 1.1rem;
+  background: $rust-500;
+  color: $cream;
+  box-shadow: $shadow-brand;
 }
 
-// ============================================================
-// SECTION LABELS
-// ============================================================
-.ts-section-label {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: $ts-indigo;
-  background: rgba(79, 70, 229, 0.08);
-  border-radius: 100px;
-  padding: 0.25rem 0.85rem;
-  margin-bottom: 0.75rem;
-}
+.ts-step {
+  position: relative;
+  padding: 1.75rem 1.5rem;
+  background: $white;
+  border: 1px solid $ink-200;
+  border-radius: 10px;
+  height: 100%;
+  text-align: left;
 
-.ts-section-title {
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: $ts-slate-900;
+  .ts-step-circle {
+    margin: 0 0 1.1rem;
+  }
+
+  h3,
+  h5 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: $ink-600;
+    font-size: 0.93rem;
+    margin: 0;
+  }
 }
 
 // ============================================================
 // BUTTONS
 // ============================================================
 .btn {
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  transition: all 0.15s ease;
+  letter-spacing: 0.005em;
+  transition:
+    color $dur-fast $ease-standard,
+    background-color $dur-fast $ease-standard,
+    border-color $dur-fast $ease-standard,
+    box-shadow $dur-fast $ease-standard,
+    transform $dur-fast $ease-standard;
 
-  &:focus-visible {
-    outline: 3px solid rgba(79, 70, 229, 0.4);
-    outline-offset: 2px;
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:disabled,
+  &.disabled {
+    opacity: 0.45;
+    box-shadow: none;
   }
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, $ts-indigo 0%, $ts-indigo-dark 100%);
-  border: none;
-  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.35);
-
-  &:hover,
-  &:focus {
-    background: linear-gradient(135deg, color.adjust($ts-indigo, $lightness: 5%) 0%, $ts-indigo 100%);
-    box-shadow: 0 4px 16px rgba(79, 70, 229, 0.45);
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
+  --bs-btn-hover-bg: #{$rust-600};
+  --bs-btn-hover-border-color: #{$rust-600};
+  --bs-btn-active-bg: #{$rust-700};
+  --bs-btn-active-border-color: #{$rust-700};
+  --bs-btn-color: #{$cream};
+  --bs-btn-hover-color: #{$cream};
+  --bs-btn-active-color: #{$cream};
 }
 
 .btn-outline-primary {
-  border-color: $ts-indigo;
-  color: $ts-indigo;
+  --bs-btn-hover-bg: #{$rust-50};
+  --bs-btn-hover-color: #{$rust-600};
+  --bs-btn-hover-border-color: #{$rust-500};
+  --bs-btn-active-bg: #{$rust-100};
+  --bs-btn-active-color: #{$rust-700};
+  --bs-btn-active-border-color: #{$rust-600};
+}
 
-  &:hover {
-    background: $ts-indigo;
-    color: #fff;
-    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
-  }
+// Ember accent button
+.btn-accent {
+  --bs-btn-color: #{$white};
+  --bs-btn-bg: #{$ember-600};
+  --bs-btn-border-color: #{$ember-600};
+  --bs-btn-hover-color: #{$white};
+  --bs-btn-hover-bg: #{$ember-700};
+  --bs-btn-hover-border-color: #{$ember-700};
+  --bs-btn-active-color: #{$white};
+  --bs-btn-active-bg: #{$ember-700};
+  --bs-btn-active-border-color: #{$ember-700};
+  --bs-btn-focus-shadow-rgb: 198, 98, 12;
+}
+
+// Neutral secondary on cream: white fill, ink text, hairline border
+.btn-secondary-mbs {
+  --bs-btn-color: #{$ink-900};
+  --bs-btn-bg: #{$white};
+  --bs-btn-border-color: #{$ink-300};
+  --bs-btn-hover-color: #{$rust-600};
+  --bs-btn-hover-bg: #{$rust-50};
+  --bs-btn-hover-border-color: #{$rust-200};
+  --bs-btn-active-color: #{$rust-700};
+  --bs-btn-active-bg: #{$rust-100};
+  --bs-btn-active-border-color: #{$rust-200};
+}
+
+// Buttons on rust / ink surfaces
+.btn-on-brand {
+  --bs-btn-color: #{$rust-600};
+  --bs-btn-bg: #{$cream};
+  --bs-btn-border-color: #{$cream};
+  --bs-btn-hover-color: #{$rust-700};
+  --bs-btn-hover-bg: #{$white};
+  --bs-btn-hover-border-color: #{$white};
+  --bs-btn-active-color: #{$rust-700};
+  --bs-btn-active-bg: #{$ink-50};
+  --bs-btn-active-border-color: #{$ink-50};
+}
+
+.btn-outline-on-brand {
+  --bs-btn-color: #{$cream};
+  --bs-btn-bg: transparent;
+  --bs-btn-border-color: #{rgba($cream, 0.55)};
+  --bs-btn-hover-color: #{$cream};
+  --bs-btn-hover-bg: #{rgba($cream, 0.12)};
+  --bs-btn-hover-border-color: #{$cream};
+  --bs-btn-active-color: #{$cream};
+  --bs-btn-active-bg: #{rgba($cream, 0.2)};
+  --bs-btn-active-border-color: #{$cream};
 }
 
 .btn-lg {
-  padding: 0.75rem 1.75rem;
+  padding: 0.75rem 1.6rem;
   font-size: 1rem;
   min-height: 48px;
 }
 
 // ============================================================
-// FORMS
+// CARDS
 // ============================================================
-.form-label {
-  font-weight: 600;
-  color: $ts-slate-700;
-  font-size: 0.9rem;
-  margin-bottom: 0.4rem;
-}
-
-.form-control,
-.form-select {
-  border-color: $ts-slate-200;
-  font-size: 0.95rem;
+.card {
+  box-shadow: $shadow-sm;
   transition:
-    border-color 0.15s ease,
-    box-shadow 0.15s ease;
+    box-shadow $dur-base $ease-standard,
+    transform $dur-base $ease-standard,
+    border-color $dur-base $ease-standard;
 
-  &:focus {
-    border-color: $ts-indigo;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+  // .border-0 on cards is common in views; keep the warm hairline
+  &.border-0 {
+    border: 1px solid $ink-200 !important;
+  }
+
+  &.card-hover:hover {
+    box-shadow: $shadow-md;
+    border-color: $ink-300 !important;
+    transform: translateY(-1px);
   }
 }
 
-.form-control[rows] {
-  resize: vertical;
-  min-height: 120px;
-}
+.card-header {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: $ink-900;
+  border-bottom-color: $ink-200;
 
-.form-text {
-  color: $ts-slate-500;
-  font-size: 0.82rem;
-}
-
-// ============================================================
-// ALERTS
-// ============================================================
-.alert {
-  border-radius: var(--ts-radius);
-  border: none;
-  font-size: 0.9rem;
-
-  &.alert-success {
-    background: rgba($ts-green, 0.1);
-    color: color.scale($ts-green, $lightness: -35%);
-  }
-
-  &.alert-info {
-    background: rgba($ts-teal, 0.1);
-    color: color.scale($ts-teal, $lightness: -35%);
-  }
-
-  &.alert-warning {
-    background: rgba($ts-amber, 0.12);
-    color: color.scale($ts-amber-dark, $lightness: -28%);
-  }
-
-  &.alert-danger {
-    background: rgba($ts-red, 0.1);
-    color: color.scale($ts-red, $lightness: -20%);
+  // Colored headers from older markup read better as brand ink/rust
+  &.bg-primary,
+  &.bg-dark {
+    color: $cream !important;
   }
 }
 
-// ============================================================
-// FEATURE LIST (checklist items)
-// ============================================================
-.ts-check-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-
-  li {
-    padding: 0.45rem 0;
-    font-size: 0.9rem;
-    color: $ts-slate-700;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.6rem;
-
-    .bi-check-circle-fill {
-      color: $ts-green;
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-    }
-
-    .bi-x-circle-fill {
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-    }
-  }
-}
-
-// ============================================================
-// PAGE HEADER COMPONENT
-// ============================================================
-.ts-page-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 2px solid $ts-slate-200;
-
-  .page-title {
-    font-size: 1.75rem;
-    font-weight: 800;
-    color: $ts-slate-900;
-    letter-spacing: -0.02em;
-    margin: 0;
-  }
-
-  .page-subtitle {
-    color: $ts-slate-500;
-    font-size: 0.92rem;
-    margin: 0.2rem 0 0;
-  }
-}
-
-// Standalone page header text helpers
-.ts-label {
-  display: inline-block;
-  font-size: 0.72rem;
+.card-title {
+  font-family: $font-display;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: $ts-indigo;
+  color: $ink-900;
 }
 
-.ts-page-title {
-  font-size: 2.25rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: $ts-slate-900;
-  line-height: 1.15;
-  margin: 0 0 0.75rem;
+// Icon chip used beside card headings
+.feature-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  background: $rust-50;
+  color: $rust-500;
+
+  &.ts-icon-sm {
+    width: 44px;
+    height: 44px;
+    font-size: 1.15rem;
+  }
 }
 
-.ts-page-subtitle {
-  font-size: 1.05rem;
-  color: $ts-slate-500;
-  line-height: 1.65;
-  max-width: 640px;
-  margin: 0;
+// Icon tones — brand-first, status only where meaning calls for it
+.tone-rust {
+  background: $rust-50 !important;
+  color: $rust-500 !important;
+}
+
+.tone-ember {
+  background: $ember-50 !important;
+  color: $ember-700 !important;
+}
+
+.tone-ink {
+  background: $ink-100 !important;
+  color: $ink-800 !important;
+}
+
+.tone-positive {
+  background: $positive-soft !important;
+  color: $positive !important;
+}
+
+.tone-critical {
+  background: $critical-soft !important;
+  color: $critical !important;
 }
 
 // ============================================================
 // TS CARD COMPONENT
 // ============================================================
 .ts-card {
-  background: #fff;
-  border-radius: var(--ts-radius);
-  border: 1px solid $ts-slate-200;
-  box-shadow: var(--ts-shadow-sm);
+  background: $white;
+  border-radius: 10px;
+  border: 1px solid $ink-200;
+  box-shadow: $shadow-sm;
   transition:
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+    box-shadow $dur-base $ease-standard,
+    border-color $dur-base $ease-standard;
 
   &:hover {
-    box-shadow: var(--ts-shadow-md);
-    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+    border-color: $ink-300;
   }
 }
 
@@ -595,132 +1023,392 @@ main > .container {
 }
 
 .ts-card-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
+  width: 46px;
+  height: 46px;
+  border-radius: 6px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.35rem;
-  background: rgba($ts-indigo, 0.1);
-  color: $ts-indigo;
+  font-size: 1.3rem;
+  background: $rust-50;
+  color: $rust-500;
   flex-shrink: 0;
 }
 
-// ============================================================
-// HERO SECTION VARIANT (full-width gradient)
-// ============================================================
-.ts-hero-section {
-  background: linear-gradient(
-    135deg,
-    $ts-indigo 0%,
-    $ts-indigo-dark 50%,
-    color.adjust($ts-indigo-dark, $lightness: -8%) 100%
-  );
-  border-radius: var(--ts-radius-lg);
-  padding: 3rem 2.5rem;
-  color: #fff;
-  position: relative;
-  overflow: hidden;
-  margin-top: 2rem;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: -50px;
-    right: -50px;
-    width: 240px;
-    height: 240px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 50%;
-    pointer-events: none;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -60px;
-    left: 10%;
-    width: 180px;
-    height: 180px;
-    background: rgba($ts-amber, 0.1);
-    border-radius: 50%;
-    pointer-events: none;
-  }
+.ts-stat-number {
+  font-family: $font-display;
+  font-weight: 800;
+  line-height: 1.1;
 }
 
 // ============================================================
-// PROBLEM/SOLUTION CARDS
+// PROBLEM / SOLUTION CARDS
 // ============================================================
-.ts-challenge-card {
-  border: 2px solid rgba($ts-red, 0.2) !important;
-  background: rgba($ts-red, 0.025);
+.ts-challenge-card,
+.ts-solution-card {
+  background: $white;
+  border-top-width: 3px !important;
 
   .card-header-ts {
-    background: linear-gradient(135deg, $ts-red, color.adjust($ts-red, $lightness: -8%));
-    color: #fff;
-    border-radius: calc(var(--ts-radius) - 2px) calc(var(--ts-radius) - 2px) 0 0;
-    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.25rem 1.5rem 0;
+    font-family: $font-display;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 1.15rem;
+    color: $ink-900;
+  }
+}
+
+.ts-challenge-card {
+  border-top-color: $ink-700 !important;
+
+  .card-header-ts .bi {
+    color: $ink-600;
+  }
+
+  .ts-check-list .bi {
+    color: $ink-400 !important;
   }
 }
 
 .ts-solution-card {
-  border: 2px solid rgba($ts-green, 0.25) !important;
-  background: rgba($ts-green, 0.025);
+  border-top-color: $rust-500 !important;
 
-  .card-header-ts {
-    background: linear-gradient(135deg, $ts-green, color.adjust($ts-green, $lightness: -8%));
-    color: #fff;
-    border-radius: calc(var(--ts-radius) - 2px) calc(var(--ts-radius) - 2px) 0 0;
-    padding: 1rem 1.25rem;
-    font-weight: 700;
-    font-size: 1rem;
+  .card-header-ts .bi {
+    color: $rust-500;
   }
 }
 
 // ============================================================
-// CTA / BENEFITS BANNER
+// CHECK LIST
 // ============================================================
-.ts-cta-banner {
-  background: linear-gradient(135deg, $ts-indigo 0%, $ts-indigo-dark 100%);
-  border-radius: 1.25rem;
-  padding: 3rem 2rem;
-  color: #fff;
+.ts-check-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    padding: 0.45rem 0;
+    font-size: 0.95rem;
+    color: $ink-700;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+
+    strong {
+      color: $ink-900;
+    }
+
+    .bi-check-circle-fill,
+    .bi-check2 {
+      color: $rust-500;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    .bi-x-circle-fill {
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+  }
+}
+
+// ============================================================
+// PAGE HEADER
+// ============================================================
+.ts-page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid $ink-200;
+
+  .page-title {
+    font-family: $font-display;
+    font-size: clamp(1.6rem, 1.5vw + 1rem, 2.25rem);
+    font-weight: 800;
+    color: $ink-900;
+    letter-spacing: -0.03em;
+    margin: 0;
+
+    .bi {
+      color: $rust-500;
+    }
+  }
+
+  .page-subtitle {
+    color: $ink-600;
+    font-size: 1rem;
+    margin: 0.4rem 0 0;
+  }
+}
+
+.ts-page-title {
+  font-family: $font-display;
+  font-size: clamp(2rem, 2.5vw + 1rem, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: $ink-900;
+  line-height: 1.08;
+  margin: 0.5rem 0 0.85rem;
+}
+
+.ts-page-subtitle {
+  font-size: 1.1rem;
+  color: $ink-600;
+  line-height: 1.6;
+  max-width: 62ch;
+  margin: 0;
+}
+
+// ============================================================
+// BRAND PANELS (rust full-bleed sections)
+// ============================================================
+.ts-cta-banner,
+.ts-hero-section {
   position: relative;
   overflow: hidden;
+  background: $rust-500;
+  color: $cream;
+  border-radius: 16px;
+  padding: 3.5rem 2rem;
 
-  &::before {
+  @media (min-width: 992px) {
+    padding: 4rem 3.5rem;
+  }
+
+  // Peak mark ornament, bottom-right
+  &::after {
     content: '';
     position: absolute;
-    top: -40px;
-    left: -40px;
-    width: 180px;
-    height: 180px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 50%;
+    right: -40px;
+    bottom: -12px;
+    width: 300px;
+    aspect-ratio: 412 / 208;
+    background: peak-mark($rust-400, $rust-600) no-repeat center / contain;
+    opacity: 0.55;
+    pointer-events: none;
   }
 
-  h2 {
-    font-weight: 800;
-    letter-spacing: -0.02em;
+  > * {
+    position: relative;
+    z-index: 1;
   }
 
-  p {
-    opacity: 0.88;
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .text-white {
+    color: $cream !important;
+  }
+
+  p,
+  .opacity-75 {
+    color: rgba($cream, 0.86);
+    opacity: 1 !important;
+  }
+
+  .ts-label,
+  .ts-eyebrow {
+    color: $ember-100 !important;
   }
 
   .benefit-icon {
-    width: 56px;
-    height: 56px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 14px;
+    width: 52px;
+    height: 52px;
+    border-radius: 6px;
+    background: rgba($cream, 0.12);
+    border: 1px solid rgba($cream, 0.22);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
+    font-size: 1.35rem;
+    color: $cream;
+    margin-bottom: 0.9rem;
+  }
+
+  .btn-light {
+    --bs-btn-color: #{$rust-600};
+    --bs-btn-bg: #{$cream};
+    --bs-btn-border-color: #{$cream};
+    --bs-btn-hover-color: #{$rust-700};
+    --bs-btn-hover-bg: #{$white};
+    --bs-btn-hover-border-color: #{$white};
+  }
+
+  .btn-outline-light {
+    --bs-btn-color: #{$cream};
+    --bs-btn-border-color: #{rgba($cream, 0.55)};
+    --bs-btn-hover-color: #{$rust-600};
+    --bs-btn-hover-bg: #{$cream};
+    --bs-btn-hover-border-color: #{$cream};
+  }
+}
+
+.ts-hero-section {
+  margin-top: 2rem;
+}
+
+// Dark ink variant
+.ts-panel-ink {
+  background: $ink-900;
+
+  &::after {
+    background-image: peak-mark($ink-700, $ink-800);
+    opacity: 1;
+  }
+}
+
+.ts-cta-banner .ts-check-list li,
+.ts-hero-section .ts-check-list li {
+  color: rgba($cream, 0.9);
+
+  .bi {
+    color: $ember-100 !important;
+  }
+}
+
+// ============================================================
+// AUTH (log in / register)
+// ============================================================
+.ts-auth {
+  max-width: 1040px;
+  margin: 0 auto;
+  background: $white;
+  border: 1px solid $ink-200;
+  border-radius: 16px;
+  box-shadow: $shadow-md;
+  overflow: hidden;
+
+  .ts-auth-aside {
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .ts-auth-form {
+    padding: 2.5rem 1.5rem;
+
+    @media (min-width: 768px) {
+      padding: 3.5rem 4rem;
+    }
+  }
+
+  .ts-auth-links {
+    margin-top: 1.5rem;
+    font-size: 0.93rem;
+    color: $ink-600;
+  }
+
+  .ts-auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.75rem 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: $ink-600;
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: $ink-200;
+    }
+  }
+}
+
+// Light CTA card (cream deep)
+.ts-cta-card {
+  background: $white;
+  border: 1px solid $ink-200;
+  border-top: 3px solid $rust-500;
+  border-radius: 10px;
+  box-shadow: $shadow-md;
+  padding: 2rem;
+}
+
+// ============================================================
+// FORMS
+// ============================================================
+.form-label {
+  color: $ink-900;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+.form-control,
+.form-select {
+  font-size: 0.95rem;
+  transition:
+    border-color $dur-fast $ease-standard,
+    box-shadow $dur-fast $ease-standard;
+}
+
+.form-control[rows] {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-text {
+  color: $ink-600;
+  font-size: 0.83rem;
+}
+
+.form-check-input:focus {
+  box-shadow: $focus-ring;
+}
+
+// ============================================================
+// ALERTS
+// ============================================================
+.alert {
+  border-radius: 6px;
+  border: 1px solid transparent;
+  border-left-width: 3px;
+  font-size: 0.93rem;
+
+  &.alert-success {
+    background: $positive-soft;
+    color: color.adjust($positive, $lightness: -8%);
+    border-color: color.adjust($positive-soft, $lightness: -8%);
+    border-left-color: $positive;
+  }
+
+  &.alert-info {
+    background: $info-soft;
+    color: color.adjust($info, $lightness: -8%);
+    border-color: color.adjust($info-soft, $lightness: -8%);
+    border-left-color: $info;
+  }
+
+  &.alert-warning {
+    background: $caution-soft;
+    color: $caution-text;
+    border-color: color.adjust($caution-soft, $lightness: -10%);
+    border-left-color: $caution;
+  }
+
+  &.alert-danger {
+    background: $critical-soft;
+    color: color.adjust($critical, $lightness: -8%);
+    border-color: color.adjust($critical-soft, $lightness: -8%);
+    border-left-color: $critical;
+  }
+
+  .alert-link {
+    color: inherit;
   }
 }
 
@@ -728,121 +1416,257 @@ main > .container {
 // ACCORDION / FAQ
 // ============================================================
 .accordion-item {
-  border: 1px solid $ts-slate-200;
-  border-radius: var(--ts-radius) !important;
+  border: 1px solid $ink-200;
+  border-radius: 6px !important;
   overflow: hidden;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
+  background: $white;
 
   &:not(:first-of-type) {
-    border-top: 1px solid $ts-slate-200;
+    border-top: 1px solid $ink-200;
   }
 }
 
 .accordion-button {
+  font-family: $font-display;
   font-weight: 600;
-  font-size: 0.95rem;
-  color: $ts-slate-900;
-  background: #fff;
-  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  color: $ink-900;
+  background: $white;
+  padding: 1.1rem 1.25rem;
 
   &:not(.collapsed) {
-    background: rgba(79, 70, 229, 0.04);
-    color: $ts-indigo;
     box-shadow: none;
-  }
-
-  &:focus {
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
   }
 }
 
 .accordion-body {
-  font-size: 0.9rem;
-  color: $ts-slate-700;
-  padding: 0.75rem 1.25rem 1.25rem;
+  font-size: 0.95rem;
+  color: $ink-700;
+  padding: 0.25rem 1.25rem 1.25rem;
+}
+
+.accordion-button:not(.collapsed) + * .accordion-body,
+.accordion-collapse.show .accordion-body {
+  background: $rust-50;
+}
+
+// ============================================================
+// BADGES
+// ============================================================
+.badge {
+  letter-spacing: 0.02em;
+  padding: 0.35em 0.65em;
+
+  &.bg-warning {
+    color: $ink-900 !important;
+  }
+
+  &.bg-light {
+    color: $ink-800 !important;
+    border: 1px solid $ink-200;
+  }
+}
+
+// Soft badge variants
+.badge-soft-rust {
+  background: $rust-50;
+  color: $rust-600;
+}
+
+.badge-soft-ember {
+  background: $ember-50;
+  color: $ember-700;
+}
+
+.badge-soft-positive {
+  background: $positive-soft;
+  color: $positive;
+}
+
+// ============================================================
+// TABLES & DATATABLES
+// ============================================================
+.table {
+  > thead th {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $ink-600;
+    background: $cream;
+    border-bottom-width: 1px;
+  }
+}
+
+.table-dark {
+  --bs-table-bg: #{$ink-900};
+}
+
+.dataTables_wrapper,
+.dt-container {
+  .dataTables_filter input,
+  .dt-search input {
+    border-radius: 6px;
+    border: 1px solid $ink-400;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.9rem;
+
+    &:focus {
+      outline: none;
+      border-color: $ember-500;
+      box-shadow: $focus-ring;
+    }
+  }
+
+  .dataTables_length select,
+  .dt-length select {
+    border-radius: 6px;
+    border: 1px solid $ink-400;
+    padding: 0.3rem 2rem 0.3rem 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .page-item.active .page-link {
+    background: $rust-500;
+    border-color: $rust-500;
+  }
 }
 
 // ============================================================
 // FOOTER
 // ============================================================
 footer.ts-footer {
-  background: $ts-slate-900;
-  color: rgba(255, 255, 255, 0.7);
-  padding: 2rem 0;
+  flex-shrink: 0;
+  background: $ink-900;
+  color: rgba($cream, 0.78);
+  padding: 3.5rem 0 2rem;
+  font-size: 0.92rem;
 
   a {
-    color: rgba(255, 255, 255, 0.65);
+    color: rgba($cream, 0.82);
     font-weight: 500;
 
     &:hover {
-      color: #fff;
+      color: $ember-200;
       text-decoration: none;
     }
   }
 
-  .footer-brand {
-    font-size: 1.1rem;
-    font-weight: 800;
-    color: #fff;
-    letter-spacing: -0.02em;
+  .footer-heading {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: $ember-200;
+    margin-bottom: 0.9rem;
+  }
 
-    .spark {
-      color: $ts-amber;
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: 0.25rem 0;
     }
+  }
+
+  .footer-tagline {
+    color: rgba($cream, 0.7);
+    max-width: 38ch;
+    margin-top: 1rem;
   }
 
   .footer-divider {
-    border-color: rgba(255, 255, 255, 0.1);
-    margin: 1.25rem 0;
+    border-color: rgba($cream, 0.12);
+    margin: 2.5rem 0 1.25rem;
+    opacity: 1;
   }
 
   .footer-meta {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.82rem;
+    color: rgba($cream, 0.6);
   }
 }
 
 // ============================================================
-// BADGE / TAG OVERRIDES
+// ADMIN SHELL
 // ============================================================
-.badge {
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  border-radius: 6px;
-  padding: 0.3em 0.65em;
-}
+.navbar-admin {
+  background: $ink-900;
+  border-bottom: 3px solid $rust-500;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
 
-// ============================================================
-// DATATABLES
-// ============================================================
-.dataTables_wrapper {
-  .dataTables_filter input {
-    border-radius: 0.5rem;
-    border: 1px solid $ts-slate-200;
-    padding: 0.4rem 0.75rem;
-    font-size: 0.875rem;
+  .nav-link {
+    color: rgba($cream, 0.82) !important;
+    font-weight: 500;
+    font-size: 0.92rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
 
-    &:focus {
-      outline: none;
-      border-color: $ts-indigo;
-      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    &:hover,
+    &:focus-visible,
+    &.show {
+      color: $cream !important;
+      background: rgba($cream, 0.08);
+      text-decoration: none;
     }
   }
 
-  .dataTables_length select {
-    border-radius: 0.5rem;
-    border: 1px solid $ts-slate-200;
-    padding: 0.3rem 2rem 0.3rem 0.6rem;
-    font-size: 0.875rem;
+  .navbar-toggler {
+    border-color: rgba($cream, 0.3);
   }
+
+  .admin-chip {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: $ember-200;
+    border: 1px solid rgba($ember-200, 0.5);
+    border-radius: 4px;
+    padding: 0.2rem 0.45rem;
+  }
+
+  .dropdown-menu {
+    border-radius: 10px;
+    padding: 0.4rem;
+
+    .dropdown-item {
+      border-radius: 4px;
+      font-size: 0.9rem;
+      padding: 0.5rem 0.8rem;
+    }
+  }
+}
+
+.admin-footer {
+  flex-shrink: 0;
+  background: $white;
+  border-top: 1px solid $ink-200;
+  color: $ink-600;
+  font-size: 0.85rem;
+  padding: 1rem 0;
 }
 
 // ============================================================
 // LOADING OVERLAY
 // ============================================================
-#loadingOverlay .card {
-  border-radius: 1rem;
-  box-shadow: var(--ts-shadow-lg);
+#loadingOverlay {
+  background-color: rgba($ink-900, 0.6) !important;
+
+  .card {
+    border-radius: 10px;
+    box-shadow: $shadow-lg;
+  }
+
+  .spinner-border {
+    color: $rust-500 !important;
+  }
 }
 
 // ============================================================
@@ -869,16 +1693,16 @@ footer.ts-footer {
 }
 
 // ============================================================
-// UTILITY ANIMATIONS
+// MOTION
 // ============================================================
 .fade-in {
-  animation: fadeInUp 0.4s ease both;
+  animation: fadeInUp 0.36s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(10px);
   }
 
   to {
@@ -887,36 +1711,43 @@ footer.ts-footer {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 // ============================================================
 // RESPONSIVE TWEAKS
 // ============================================================
 @media (max-width: 767.98px) {
   .ts-hero {
-    padding: 2.5rem 1.5rem;
+    padding-top: 0.5rem;
 
-    h1 {
-      font-size: 1.85rem;
+    .lead {
+      font-size: 1.08rem;
     }
   }
 
-  .ts-cta-banner {
-    padding: 2rem 1.5rem;
-  }
+  .ts-cta-banner,
+  .ts-hero-section {
+    padding: 2.5rem 1.5rem;
 
-  .ts-page-header {
-    .page-title {
-      font-size: 1.45rem;
+    &::after {
+      width: 180px;
     }
   }
 
   main > .container {
-    padding-top: 1.25rem;
-    padding-bottom: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 2.5rem;
   }
 
-  .btn-lg {
+  .ts-hero .ts-hero-actions .btn {
     width: 100%;
-    justify-content: center;
-    margin-bottom: 0.5rem;
   }
 }

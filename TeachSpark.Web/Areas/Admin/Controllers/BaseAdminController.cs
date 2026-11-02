@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TeachSpark.Web.Services;
 
 namespace TeachSpark.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize] // Require authentication for all admin controllers
+    [Authorize(Roles = AppRoles.Admin)] // Admin area is limited to accounts in the Admin role
     public abstract class BaseAdminController : Controller
     {
         protected void SetSuccessMessage(string message)
