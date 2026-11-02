@@ -1,288 +1,230 @@
 @{
     ViewData["Title"] = "Roadmap";
-    ViewData["Description"] = "TeachSpark development roadmap — shipped features, active work, and what's coming next.";
+    ViewData["Description"] = "TeachSpark roadmap: what works today, what we're building next, and what comes later.";
+
+    // Mirrors .devspark.work/roadmap/roadmap.md, the source of truth. When a roadmap item
+    // changes status, update its entry here in the same pull request.
+    const string RoadmapUpdated = "November 2026";
+
+    var live = new[]
+    {
+        new { Icon = "bi-magic", Title = "AI worksheet generation", Desc = "Paste a passage and generate a worksheet in one of five English Language Arts formats. Choose a template, difficulty level, Bloom's level and number of questions, and add your own instructions." },
+        new { Icon = "bi-bookmarks", Title = "Standards alignment", Desc = "Optionally align a worksheet to a grade 8 Common Core ELA standard and a Bloom's taxonomy level. More grades and subjects are next on the roadmap." },
+        new { Icon = "bi-printer", Title = "Teacher and student views", Desc = "Review the worksheet with its answer key, switch to a student version without answers, and print from your browser." },
+        new { Icon = "bi-person-check", Title = "Teacher accounts", Desc = "Free registration and sign-in, a personal dashboard and profile. Sign-ins last 14 days while you keep using the site." },
+        new { Icon = "bi-shield-lock", Title = "Admin area", Desc = "Administrators manage standards, Bloom's levels, worksheet templates and their AI prompts, and review usage. Restricted to the Admin role." },
+        new { Icon = "bi-graph-up", Title = "Usage tracking", Desc = "The model, tokens, cost and generation time of every worksheet are recorded, with structured logging of AI requests." },
+    };
+
+    var worksheetTypes = new[]
+    {
+        new { Icon = "bi-book", Label = "Reading comprehension", Detail = "Literal, inferential and text-evidence questions" },
+        new { Icon = "bi-alphabet", Label = "Vocabulary", Detail = "Context clues, definitions and usage" },
+        new { Icon = "bi-pencil-square", Label = "Grammar", Detail = "Rules and practice drawn from your text" },
+        new { Icon = "bi-lightbulb", Label = "Creative writing", Detail = "Text-inspired prompts and planning" },
+        new { Icon = "bi-search", Label = "Literary analysis", Detail = "Theme, character and craft" },
+    };
+
+    var phases = new[]
+    {
+        new
+        {
+            Key = "now", Label = "Now", Tone = "tone-rust", Badge = "badge-soft-rust",
+            Title = "Foundation and trust",
+            Intro = "Making TeachSpark safe and affordable to run before we add more features.",
+            Items = new[]
+            {
+                new { Icon = "bi-speedometer", Title = "Fair-use and spending limits", Desc = "Daily limits on AI usage per teacher and overall, with a clear message when a limit is reached." },
+                new { Icon = "bi-lock", Title = "Security hardening", Desc = "Require sign-in for the AI model endpoints and restrict diagnostics to administrators." },
+                new { Icon = "bi-database-check", Title = "Safe upgrades for your data", Desc = "Database changes that apply automatically and keep your saved worksheets intact." },
+                new { Icon = "bi-check2-all", Title = "Automated testing of generation", Desc = "Test the full worksheet flow on every change, without calling the AI service." },
+            },
+        },
+        new
+        {
+            Key = "next", Label = "Next", Tone = "tone-ember", Badge = "badge-soft-ember",
+            Title = "Core teacher value",
+            Intro = "Finishing the loop from \"I need a worksheet\" to a printed page you can find again.",
+            Items = new[]
+            {
+                new { Icon = "bi-collection", Title = "My worksheets", Desc = "Find, reopen, favourite and delete everything you've generated." },
+                new { Icon = "bi-layers", Title = "Every grade and subject", Desc = "Pick your grade and subject. Common Core ELA and Math standards for every grade are already loaded." },
+                new { Icon = "bi-shield-check", Title = "Student-safe content checks", Desc = "Check your source text and the AI's output for age-appropriate content and a complete structure." },
+                new { Icon = "bi-pencil", Title = "Edit before you print", Desc = "Change any question or wording, with the AI's original kept so you can revert." },
+                new { Icon = "bi-file-earmark-pdf", Title = "Classroom-ready PDF", Desc = "One-click PDF with consistent formatting and a separate answer key." },
+                new { Icon = "bi-envelope-check", Title = "Email confirmation and password reset", Desc = "Verify your email address and recover a forgotten password." },
+            },
+        },
+        new
+        {
+            Key = "later", Label = "Later", Tone = "tone-ink", Badge = "bg-secondary-subtle text-secondary-emphasis",
+            Title = "Quality and differentiation",
+            Intro = "Using your feedback to make every worksheet better.",
+            Items = new[]
+            {
+                new { Icon = "bi-hand-thumbs-up", Title = "Ratings and feedback", Desc = "Tell us in one click whether a worksheet worked, so templates and prompts improve where it matters." },
+                new { Icon = "bi-bar-chart-steps", Title = "Differentiated sets", Desc = "One request, matched worksheets at below, on and above grade level." },
+                new { Icon = "bi-graph-up-arrow", Title = "Usage and quality insights", Desc = "See which worksheet types work best, and what each one costs to generate." },
+            },
+        },
+        new
+        {
+            Key = "horizon", Label = "Horizon", Tone = "tone-ink", Badge = "bg-secondary-subtle text-secondary-emphasis",
+            Title = "Classroom and reach",
+            Intro = "Bigger ideas we'll take on once the core is solid.",
+            Items = new[]
+            {
+                new { Icon = "bi-people", Title = "Class groups", Desc = "Organise worksheets by class with default grade and levels. TeachSpark will never store student data." },
+                new { Icon = "bi-share", Title = "Shared worksheet library", Desc = "Publish your best worksheets and copy proven ones from other teachers." },
+                new { Icon = "bi-code-slash", Title = "Public API", Desc = "Programmatic worksheet generation for integrations, using personal API keys." },
+            },
+        },
+    };
+
+    var upcomingCount = phases.Sum(p => p.Items.Length);
 }
 
 <!-- Page Header -->
 <div class="ts-page-header">
     <div class="ts-page-header-content">
-        <span class="ts-label mb-2">Development Roadmap</span>
-        <h1 class="ts-page-title">Where We Are &amp; Where We're Going</h1>
+        <span class="ts-label mb-2">Roadmap · updated @RoadmapUpdated</span>
+        <h1 class="ts-page-title">What works today, and what's next</h1>
         <p class="ts-page-subtitle">
-            TeachSpark is a live educational laboratory. Core features are shipped and running.
-            Development is driven by real teacher feedback, not a fixed release schedule.
+            TeachSpark is an educational lab developed in the open. This page lists only what the app does today,
+            and plans in the order we intend to build them. Nothing below "Live" is available yet.
         </p>
-        <div class="d-flex flex-wrap gap-2 mt-4">
-            <span class="badge badge-soft-positive fs-6 fw-semibold">
-                <i class="bi bi-check-circle me-1"></i> Core Platform Live
-            </span>
-            <span class="badge badge-soft-ember fs-6 fw-semibold">
-                <i class="bi bi-lightning-charge me-1"></i> .NET 10 &amp; AI-Powered
-            </span>
-            <span class="badge badge-soft-rust fs-6 fw-semibold">
-                <i class="bi bi-flask me-1"></i> Educational Lab
-            </span>
-        </div>
     </div>
 </div>
 
 <!-- Status Summary -->
 <div class="row g-4 mb-5">
-    <div class="col-sm-6 col-lg-3">
-        <div class="ts-card text-center p-4">
-            <div class="ts-card-icon mx-auto mb-3 tone-positive">
-                <i class="bi bi-check2-circle"></i>
-            </div>
-            <div class="ts-stat-number fs-3 mb-1 text-success">6</div>
-            <div class="text-muted small">Features Shipped</div>
+    <div class="col-6 col-lg-3">
+        <div class="ts-card text-center p-4 h-100">
+            <div class="ts-card-icon mx-auto mb-3 tone-positive"><i class="bi bi-check2-circle"></i></div>
+            <div class="ts-stat-number fs-3 mb-1">@live.Length</div>
+            <div class="text-muted small">Live today</div>
         </div>
     </div>
-    <div class="col-sm-6 col-lg-3">
-        <div class="ts-card text-center p-4">
-            <div class="ts-card-icon mx-auto mb-3 tone-ember">
-                <i class="bi bi-hammer"></i>
-            </div>
-            <div class="ts-stat-number fs-3 mb-1" style="color:var(--ts-amber-dark);">3</div>
-            <div class="text-muted small">In Development</div>
+    <div class="col-6 col-lg-3">
+        <div class="ts-card text-center p-4 h-100">
+            <div class="ts-card-icon mx-auto mb-3 tone-ember"><i class="bi bi-ui-checks"></i></div>
+            <div class="ts-stat-number fs-3 mb-1">@worksheetTypes.Length</div>
+            <div class="text-muted small">Worksheet formats</div>
         </div>
     </div>
-    <div class="col-sm-6 col-lg-3">
-        <div class="ts-card text-center p-4">
-            <div class="ts-card-icon mx-auto mb-3">
-                <i class="bi bi-map"></i>
-            </div>
-            <div class="ts-stat-number fs-3 mb-1 text-primary">4</div>
-            <div class="text-muted small">Planned Ahead</div>
+    <div class="col-6 col-lg-3">
+        <div class="ts-card text-center p-4 h-100">
+            <div class="ts-card-icon mx-auto mb-3 tone-rust"><i class="bi bi-map"></i></div>
+            <div class="ts-stat-number fs-3 mb-1">@upcomingCount</div>
+            <div class="text-muted small">Planned items</div>
         </div>
     </div>
-    <div class="col-sm-6 col-lg-3">
-        <div class="ts-card text-center p-4">
-            <div class="ts-card-icon mx-auto mb-3 tone-ink">
-                <i class="bi bi-clock-history"></i>
-            </div>
-            <div class="ts-stat-number fs-3 mb-1 text-primary">&lt;60s</div>
-            <div class="text-muted small">Avg. Generation Time</div>
+    <div class="col-6 col-lg-3">
+        <div class="ts-card text-center p-4 h-100">
+            <div class="ts-card-icon mx-auto mb-3 tone-ink"><i class="bi bi-signpost-split"></i></div>
+            <div class="ts-stat-number fs-3 mb-1">@phases.Length</div>
+            <div class="text-muted small">Phases ahead</div>
         </div>
     </div>
 </div>
 
-<!-- Shipped Section -->
-<div class="mb-5">
+<!-- Live -->
+<section class="mb-5" aria-labelledby="live-heading">
     <div class="d-flex align-items-center gap-3 mb-4">
-        <span class="ts-status-dot" style="background:var(--ts-success);width:12px;height:12px;border-radius:50%;flex-shrink:0;"></span>
-        <h2 class="h4 mb-0 fw-bold">Shipped &amp; Live</h2>
+        <span class="badge badge-soft-positive">Live</span>
+        <h2 id="live-heading" class="h4 mb-0 fw-bold">Available today</h2>
         <hr class="flex-grow-1 mb-0">
     </div>
     <div class="row g-4">
-        <div class="col-md-6 col-lg-4">
-            <div class="ts-card h-100">
-                <div class="ts-card-body">
-                    <div class="d-flex align-items-start gap-3 mb-3">
-                        <div class="ts-card-icon flex-shrink-0" style="background:var(--ts-success-light);color:var(--ts-success);">
-                            <i class="bi bi-robot"></i>
+        @foreach (var item in live)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="ts-card h-100">
+                    <div class="ts-card-body">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="ts-card-icon flex-shrink-0 tone-positive"><i class="bi @item.Icon"></i></div>
+                            <h3 class="h6 fw-semibold mb-0">@item.Title</h3>
                         </div>
-                        <div>
-                            <h5 class="fw-semibold mb-1">AI Worksheet Generation</h5>
-                            <span class="badge" style="background:var(--ts-success-light);color:var(--ts-success);font-size:.75rem;">Live</span>
-                        </div>
+                        <p class="text-muted small mb-0">@item.Desc</p>
                     </div>
-                    <p class="text-muted small mb-0">GPT-4o-mini integration via Microsoft.Extensions.AI. Real-time generation with cost tracking, token monitoring, and comprehensive error handling.</p>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="ts-card h-100">
-                <div class="ts-card-body">
-                    <div class="d-flex align-items-start gap-3 mb-3">
-                        <div class="ts-card-icon flex-shrink-0" style="background:var(--ts-success-light);color:var(--ts-success);">
-                            <i class="bi bi-person-check"></i>
-                        </div>
-                        <div>
-                            <h5 class="fw-semibold mb-1">User Authentication</h5>
-                            <span class="badge" style="background:var(--ts-success-light);color:var(--ts-success);font-size:.75rem;">Live</span>
-                        </div>
-                    </div>
-                    <p class="text-muted small mb-0">Full ASP.NET Core Identity — registration, login, profile management, and secure session handling with 14-day sliding expiry.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="ts-card h-100">
-                <div class="ts-card-body">
-                    <div class="d-flex align-items-start gap-3 mb-3">
-                        <div class="ts-card-icon flex-shrink-0" style="background:var(--ts-success-light);color:var(--ts-success);">
-                            <i class="bi bi-shield-check"></i>
-                        </div>
-                        <div>
-                            <h5 class="fw-semibold mb-1">Admin Dashboard</h5>
-                            <span class="badge" style="background:var(--ts-success-light);color:var(--ts-success);font-size:.75rem;">Live</span>
-                        </div>
-                    </div>
-                    <p class="text-muted small mb-0">Full CRUD for worksheets, templates, standards, API keys, and usage analytics — all in a dedicated admin area.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="ts-card h-100">
-                <div class="ts-card-body">
-                    <div class="d-flex align-items-start gap-3 mb-3">
-                        <div class="ts-card-icon flex-shrink-0" style="background:var(--ts-success-light);color:var(--ts-success);">
-                            <i class="bi bi-bookmarks"></i>
-                        </div>
-                        <div>
-                            <h5 class="fw-semibold mb-1">Standards Alignment</h5>
-                            <span class="badge" style="background:var(--ts-success-light);color:var(--ts-success);font-size:.75rem;">Live</span>
-                        </div>
-                    </div>
-                    <p class="text-muted small mb-0">Common Core Standards database with Bloom's Taxonomy integration. Every worksheet is aligned to grade-level learning objectives.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="ts-card h-100">
-                <div class="ts-card-body">
-                    <div class="d-flex align-items-start gap-3 mb-3">
-                        <div class="ts-card-icon flex-shrink-0" style="background:var(--ts-success-light);color:var(--ts-success);">
-                            <i class="bi bi-graph-up"></i>
-                        </div>
-                        <div>
-                            <h5 class="fw-semibold mb-1">Logging &amp; Monitoring</h5>
-                            <span class="badge" style="background:var(--ts-success-light);color:var(--ts-success);font-size:.75rem;">Live</span>
-                        </div>
-                    </div>
-                    <p class="text-muted small mb-0">Serilog structured logging with LLM interaction logs, performance metrics, daily cost limits, and usage analytics.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="ts-card h-100">
-                <div class="ts-card-body">
-                    <div class="d-flex align-items-start gap-3 mb-3">
-                        <div class="ts-card-icon flex-shrink-0" style="background:var(--ts-success-light);color:var(--ts-success);">
-                            <i class="bi bi-palette"></i>
-                        </div>
-                        <div>
-                            <h5 class="fw-semibold mb-1">Modern UI Redesign</h5>
-                            <span class="badge" style="background:var(--ts-success-light);color:var(--ts-success);font-size:.75rem;">Live</span>
-                        </div>
-                    </div>
-                    <p class="text-muted small mb-0">Teacher-first design system with indigo/amber palette, mobile-first responsive layout, and running on .NET 10 with webpack asset pipeline.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Worksheet Types -->
-<div class="mb-5">
-    <div class="d-flex align-items-center gap-3 mb-4">
-        <span style="background:var(--ts-success);width:12px;height:12px;border-radius:50%;flex-shrink:0;display:inline-block;"></span>
-        <h2 class="h4 mb-0 fw-bold">Supported Worksheet Types</h2>
-        <hr class="flex-grow-1 mb-0">
-    </div>
-    <div class="row g-3">
-        @{
-            var worksheetTypes = new[]
-            {
-                new { Icon = "bi-book", Label = "Reading Comprehension", Detail = "Vocabulary exercises, deep questions, character analysis, theme exploration" },
-                new { Icon = "bi-pencil-square", Label = "Grammar Focus", Detail = "Rules in context, practice exercises, sentence structure activities" },
-                new { Icon = "bi-lightbulb", Label = "Creative Writing", Detail = "Prompts, story planning templates, original composition guides" },
-                new { Icon = "bi-search", Label = "Literary Analysis", Detail = "Comparison charts, cause-and-effect, argument evaluation" },
-                new { Icon = "bi-journal-text", Label = "Vocabulary Builder", Detail = "Context-based exercises, definitions, usage in sentences" },
-                new { Icon = "bi-bar-chart-steps", Label = "Critical Thinking", Detail = "Evidence assessment, source analysis, reasoning frameworks" },
-            };
         }
+    </div>
+
+    <h3 class="h6 fw-bold mt-5 mb-3">Worksheet formats</h3>
+    <div class="row g-3">
         @foreach (var t in worksheetTypes)
         {
             <div class="col-sm-6 col-lg-4">
-                <div class="d-flex align-items-center gap-3 p-3 rounded-3" style="background:var(--ts-surface-alt);border:1px solid var(--ts-border);">
-                    <i class="bi @t.Icon fs-5" style="color:var(--ts-primary);flex-shrink:0;"></i>
+                <div class="ts-type-tile h-100">
+                    <span class="ts-type-icon"><i class="bi @t.Icon"></i></span>
                     <div>
-                        <div class="fw-semibold small">@t.Label</div>
-                        <div class="text-muted" style="font-size:.78rem;">@t.Detail</div>
+                        <div class="ts-type-name">@t.Label</div>
+                        <div class="ts-type-desc">@t.Detail</div>
                     </div>
                 </div>
             </div>
         }
     </div>
-</div>
+</section>
 
-<!-- In Development -->
-<div class="mb-5">
-    <div class="d-flex align-items-center gap-3 mb-4">
-        <span style="background:var(--ts-amber);width:12px;height:12px;border-radius:50%;flex-shrink:0;display:inline-block;"></span>
-        <h2 class="h4 mb-0 fw-bold">In Development</h2>
-        <hr class="flex-grow-1 mb-0">
-    </div>
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="ts-card h-100" style="border-left:3px solid var(--ts-amber);">
-                <div class="ts-card-body">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <i class="bi bi-people fs-5" style="color:var(--ts-amber-dark);"></i>
-                        <h5 class="fw-semibold mb-0">Student Cohort Management</h5>
-                    </div>
-                    <p class="text-muted small mb-3">Group students by grade level, Bloom's taxonomy readiness, and learning style. Generate differentiated worksheets for each cohort automatically.</p>
-                    <span class="badge" style="background:var(--ts-amber-light);color:var(--ts-amber-dark);font-size:.75rem;">In Progress</span>
-                </div>
-            </div>
+<!-- Planned phases -->
+@foreach (var phase in phases)
+{
+    <section class="mb-5" aria-labelledby="@($"{phase.Key}-heading")">
+        <div class="d-flex align-items-center gap-3 mb-2">
+            <span class="badge @phase.Badge">@phase.Label</span>
+            <h2 id="@($"{phase.Key}-heading")" class="h4 mb-0 fw-bold">@phase.Title</h2>
+            <hr class="flex-grow-1 mb-0">
         </div>
-        <div class="col-md-4">
-            <div class="ts-card h-100" style="border-left:3px solid var(--ts-amber);">
-                <div class="ts-card-body">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <i class="bi bi-code-slash fs-5" style="color:var(--ts-amber-dark);"></i>
-                        <h5 class="fw-semibold mb-0">REST API Endpoints</h5>
-                    </div>
-                    <p class="text-muted small mb-3">Programmatic access to worksheet generation, template management, and analytics. Enables LMS integrations and third-party tooling.</p>
-                    <span class="badge" style="background:var(--ts-amber-light);color:var(--ts-amber-dark);font-size:.75rem;">In Progress</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="ts-card h-100" style="border-left:3px solid var(--ts-amber);">
-                <div class="ts-card-body">
-                    <div class="d-flex align-items-center gap-2 mb-3">
-                        <i class="bi bi-chat-dots fs-5" style="color:var(--ts-amber-dark);"></i>
-                        <h5 class="fw-semibold mb-0">Teacher Feedback Loop</h5>
-                    </div>
-                    <p class="text-muted small mb-3">In-app feedback on generated worksheets feeds directly into prompt refinement. Teacher ratings guide model fine-tuning priorities.</p>
-                    <span class="badge" style="background:var(--ts-amber-light);color:var(--ts-amber-dark);font-size:.75rem;">In Progress</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Tech Stack -->
-<div class="mb-5">
-    <div class="d-flex align-items-center gap-3 mb-4">
-        <span style="background:var(--ts-primary);width:12px;height:12px;border-radius:50%;flex-shrink:0;display:inline-block;"></span>
-        <h2 class="h4 mb-0 fw-bold">Technical Stack</h2>
-        <hr class="flex-grow-1 mb-0">
-    </div>
-    <div class="row g-3">
-        @{
-            var stackItems = new[]
+        <p class="text-muted mb-4">@phase.Intro</p>
+        <div class="row g-4">
+            @foreach (var item in phase.Items)
             {
-                new { Layer = "Platform", Items = new[] { ".NET 10 / ASP.NET Core", "Razor MVC + Razor Pages", "Entity Framework Core 10", "SQLite (production-ready)" } },
-                new { Layer = "Frontend", Items = new[] { "Bootstrap 5 + Bootstrap Icons", "Webpack 5 asset pipeline", "Custom SCSS design system", "Mobile-first responsive" } },
-                new { Layer = "AI & Services", Items = new[] { "Microsoft.Extensions.AI", "OpenAI GPT-4o-mini", "Rate limiting & cost caps", "Caching & retry logic" } },
-                new { Layer = "Identity & Auth", Items = new[] { "ASP.NET Core Identity", "Cookie auth (14-day sliding)", "Role-based admin area", "Secure session management" } },
-            };
-        }
+                <div class="col-md-6 col-lg-4">
+                    <div class="ts-card h-100">
+                        <div class="ts-card-body">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div class="ts-card-icon flex-shrink-0 @phase.Tone"><i class="bi @item.Icon"></i></div>
+                                <h3 class="h6 fw-semibold mb-0">@item.Title</h3>
+                            </div>
+                            <p class="text-muted small mb-0">@item.Desc</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+}
+
+<!-- Built on -->
+<section class="mb-5" aria-labelledby="stack-heading">
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <h2 id="stack-heading" class="h4 mb-0 fw-bold">Built on</h2>
+        <hr class="flex-grow-1 mb-0">
+    </div>
+    @{
+        var stackItems = new[]
+        {
+            new { Layer = "Platform", Items = new[] { ".NET 10 and ASP.NET Core MVC", "Entity Framework Core", "SQLite" } },
+            new { Layer = "Frontend", Items = new[] { "Bootstrap 5 and Bootstrap Icons", "Webpack 5 asset pipeline", "Make Bold design system" } },
+            new { Layer = "AI", Items = new[] { "Microsoft.Extensions.AI", "OpenAI, GPT-4o-mini by default", "Cost and token tracking" } },
+            new { Layer = "Accounts", Items = new[] { "ASP.NET Core Identity", "Cookie sign-in, 14-day sliding", "Role-based admin area" } },
+        };
+    }
+    <div class="row g-3">
         @foreach (var s in stackItems)
         {
             <div class="col-sm-6 col-lg-3">
                 <div class="ts-card h-100">
                     <div class="ts-card-body">
-                        <h6 class="fw-bold mb-3" style="color:var(--ts-primary);">@s.Layer</h6>
+                        <h3 class="h6 fw-bold mb-3">@s.Layer</h3>
                         <ul class="list-unstyled mb-0">
-                            @foreach (var item in s.Items)
+                            @foreach (var entry in s.Items)
                             {
                                 <li class="d-flex align-items-start gap-2 mb-2 small text-muted">
-                                    <i class="bi bi-check2 mt-1 flex-shrink-0" style="color:var(--ts-success);"></i>
-                                    @item
+                                    <i class="bi bi-check2 mt-1 flex-shrink-0"></i>@entry
                                 </li>
                             }
                         </ul>
@@ -291,62 +233,26 @@
             </div>
         }
     </div>
-</div>
+</section>
 
-<!-- Planned -->
-<div class="mb-5">
-    <div class="d-flex align-items-center gap-3 mb-4">
-        <span style="background:var(--ts-border-dark);width:12px;height:12px;border-radius:50%;flex-shrink:0;display:inline-block;"></span>
-        <h2 class="h4 mb-0 fw-bold">On the Horizon</h2>
-        <hr class="flex-grow-1 mb-0">
-    </div>
-    <div class="row g-4">
-        @{
-            var planned = new[]
-            {
-                new { Icon = "bi-star", Title = "Worksheet Rating &amp; Favorites", Desc = "Teachers save, rate, and remix worksheets. High-rated prompts surface more often in future generation." },
-                new { Icon = "bi-printer", Title = "Print-Optimised Export", Desc = "One-click PDF with classroom-ready formatting — proper fonts, line spacing, and answer-key generation." },
-                new { Icon = "bi-person-lines-fill", Title = "Differentiated Output", Desc = "Same topic, three reading levels. Generate scaffolded, standard, and enrichment versions simultaneously." },
-                new { Icon = "bi-bar-chart", Title = "Usage &amp; Impact Analytics", Desc = "Track which worksheet types teachers use most, generation latency trends, and AI cost-per-worksheet metrics." },
-            };
-        }
-        @foreach (var p in planned)
-        {
-            <div class="col-sm-6 col-lg-3">
-                <div class="ts-card h-100" style="opacity:.85;">
-                    <div class="ts-card-body">
-                        <i class="bi @p.Icon fs-4 mb-3 d-block" style="color:var(--ts-text-muted);"></i>
-                        <h6 class="fw-semibold mb-2">@Html.Raw(p.Title)</h6>
-                        <p class="text-muted small mb-0">@p.Desc</p>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-</div>
-
-<!-- Lab Philosophy + CTA -->
+<!-- Feedback CTA -->
 <div class="ts-hero-section">
     <div class="row align-items-center g-4">
         <div class="col-lg-8">
-            <span class="ts-label mb-2">Educational Laboratory</span>
-            <h2 class="h3 text-white fw-bold mb-3">Built with Teachers, for Teachers</h2>
+            <span class="ts-label mb-2">Educational lab</span>
+            <h2 class="h3 text-white fw-bold mb-3">Help us set the order</h2>
             <p class="mb-4" style="max-width:580px;">
-                TeachSpark isn't driven by a product roadmap — it's driven by what teachers actually need in the classroom.
-                Every feature starts as a conversation with an educator.
-                If you have ideas, friction points, or requests, we want to hear them.
+                This plan changes as we learn what teachers need most. If something here matters to your classroom,
+                or something is missing, tell us on GitHub.
             </p>
             <div class="d-flex flex-wrap gap-3">
                 <a asp-area="" asp-controller="WorksheetGenerator" asp-action="Index" class="btn btn-light fw-semibold px-4">
-                    <i class="bi bi-magic me-2"></i>Try the Generator
+                    <i class="bi bi-magic me-2"></i>Try the generator
                 </a>
-                <a href="https://github.com/MakeBoldSolutions/TeachSpark" target="_blank" class="btn btn-outline-light fw-semibold px-4">
-                    <i class="bi bi-github me-2"></i>GitHub
+                <a href="https://github.com/MakeBoldSolutions/TeachSpark/issues" target="_blank" rel="noopener" class="btn btn-outline-light fw-semibold px-4">
+                    <i class="bi bi-github me-2"></i>Share an idea
                 </a>
             </div>
-        </div>
-        <div class="col-lg-4 text-center d-none d-lg-block">
-            
         </div>
     </div>
 </div>
